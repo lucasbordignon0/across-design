@@ -10,6 +10,10 @@ const HELIX_RADIUS = 5
 const HELIX_PITCH = 4.5          // vertical distance per full revolution
 const HOVER_PUSH = 0.6           // how far poster moves outward on hover
 
+// Intro animation config
+const INTRO_DURATION = 1.8       // seconds for ribbon to slide up
+const MIN_LOADER_TIME = 1.2      // minimum seconds to show loader
+
 // Arc-length step: place posters edge-to-edge along the helix (no gap)
 const helixArcPerRad = Math.sqrt(
   HELIX_RADIUS * HELIX_RADIUS +
@@ -35,9 +39,31 @@ function shuffle(arr, seed = 42) {
 }
 
 const shuffledPosters = shuffle(POSTER_SRCS)
-const textureLoader = new THREE.TextureLoader()
 
-// Pre-load & cache all 30 textures once
+// ── Loading Manager ───────────────────────────────────────
+const loaderEl = document.getElementById('loader')
+const loaderPct = loaderEl.querySelector('.loader-pct')
+const navEl = document.getElementById('nav')
+const heroEl = document.getElementById('hero')
+const footerEl = document.getElementById('footer')
+
+let loadingComplete = false
+let loaderStartTime = performance.now()
+
+const loadingManager = new THREE.LoadingManager()
+
+loadingManager.onProgress = (_url, loaded, total) => {
+  const pct = Math.round((loaded / total) * 100)
+  loaderPct.textContent = pct
+}
+
+loadingManager.onLoad = () => {
+  loadingComplete = true
+}
+
+const textureLoader = new THREE.TextureLoader(loadingManager)
+
+// Pre-load & cache all 30 textures
 const textureCache = new Map()
 for (const src of POSTER_SRCS) {
   const tex = textureLoader.load(src)
@@ -161,6 +187,13 @@ scene.add(helix)
 
 const posters = []
 
+const totalHelixHeight =
+  (POSTER_COUNT * ANGLE_STEP * HELIX_PITCH) / (2 * Math.PI)
+
+// Start helix far below for intro animation
+const INTRO_START_Y = totalHelixHeight + 20
+helix.position.y = INTRO_START_Y
+
 for (let i = 0; i < POSTER_COUNT; i++) {
   const tStart = i * ANGLE_STEP
   const tEnd = (i + 1) * ANGLE_STEP
@@ -192,10 +225,6 @@ for (let i = 0; i < POSTER_COUNT; i++) {
   posters.push(mesh)
 }
 
-// ── UI overlay elements ──────────────────────────────────
-const heroEl = document.getElementById('hero')
-const footerEl = document.getElementById('footer')
-
 // ── Raycaster for hover ─────────────────────────────────
 const raycaster = new THREE.Raycaster()
 const mouse = new THREE.Vector2(-999, -999)
@@ -218,13 +247,14 @@ let scrollVelocity = 0
 const SCROLL_FRICTION = 0.92
 const SCROLL_SENSITIVITY = 0.00003
 
-const totalHelixHeight =
-  (POSTER_COUNT * ANGLE_STEP * HELIX_PITCH) / (2 * Math.PI)
+// Scroll is disabled during loading + intro
+let scrollEnabled = false
 
 scrollTrack.addEventListener(
   'wheel',
   (e) => {
     e.preventDefault()
+    if (!scrollEnabled) return
     scrollVelocity += e.deltaY * SCROLL_SENSITIVITY
   },
   { passive: false }
@@ -234,6 +264,7 @@ let touchStartY = 0
 let touchLastY = 0
 
 scrollTrack.addEventListener('touchstart', (e) => {
+  if (!scrollEnabled) return
   touchStartY = e.touches[0].clientY
   touchLastY = touchStartY
   scrollVelocity = 0
@@ -243,12 +274,52 @@ scrollTrack.addEventListener(
   'touchmove',
   (e) => {
     e.preventDefault()
+    if (!scrollEnabled) return
     const y = e.touches[0].clientY
     scrollVelocity += (touchLastY - y) * 0.0003
     touchLastY = y
   },
   { passive: false }
 )
+
+// ── Intro animation state ────────────────────────────────
+let introActive = false
+let introElapsed = 0
+let loaderDismissed = false
+
+function easeOutCubic(t) {
+  return 1 - Math.pow(1 - t, 3)
+}
+
+function startIntro() {
+  // Fade out loader
+  loaderEl.classList.add('fade-out')
+  loaderPct.textContent = '100'
+
+  // Show nav + hero
+  navEl.classList.add('visible')
+  heroEl.classList.add('visible')
+  heroEl.style.opacity = 1
+
+  // Start ribbon intro animation
+  introActive = true
+  introElapsed = 0
+
+  // Remove loader from DOM after fade
+  setTimeout(() => {
+    loaderEl.remove()
+  }, 700)
+}
+
+// ── Check if ready to start intro ────────────────────────
+function checkReady() {
+  if (loaderDismissed) return
+  const elapsed = (performance.now() - loaderStartTime) / 1000
+  if (loadingComplete && elapsed >= MIN_LOADER_TIME) {
+    loaderDismissed = true
+    startIntro()
+  }
+}
 
 // ── Animation loop (frame-rate independent) ─────────────
 const clock = new THREE.Clock()
@@ -257,14 +328,34 @@ function animate() {
   requestAnimationFrame(animate)
 
   const dt = Math.min(clock.getDelta(), 0.05) // cap to avoid jumps
+
+  // Check if loading is done
+  checkReady()
+
+  // ── Intro animation ──────────────────────────────────
+  if (introActive) {
+    introElapsed += dt
+    const t = Math.min(introElapsed / INTRO_DURATION, 1)
+    const eased = easeOutCubic(t)
+    helix.position.y = INTRO_START_Y * (1 - eased) // lerp from INTRO_START_Y to 0
+
+    if (t >= 1) {
+      introActive = false
+      helix.position.y = 0
+      scrollEnabled = true
+    }
+  }
+
   const hoverLerp = 1 - Math.exp(-12 * dt)
 
   // Velocity-based scroll with friction
-  scrollVelocity *= Math.pow(SCROLL_FRICTION, dt * 60)
-  scrollProgress += scrollVelocity
-  scrollProgress = Math.max(0, Math.min(1, scrollProgress))
-  // Stop at edges
-  if (scrollProgress <= 0 || scrollProgress >= 1) scrollVelocity = 0
+  if (scrollEnabled) {
+    scrollVelocity *= Math.pow(SCROLL_FRICTION, dt * 60)
+    scrollProgress += scrollVelocity
+    scrollProgress = Math.max(0, Math.min(1, scrollProgress))
+    // Stop at edges
+    if (scrollProgress <= 0 || scrollProgress >= 1) scrollVelocity = 0
+  }
 
   // Camera descends with scroll
   const yOffset = scrollProgress * totalHelixHeight
@@ -309,10 +400,12 @@ function animate() {
   }
 
   // ── Update UI overlay opacity ────────────────────────
-  const heroOpacity = Math.max(0, Math.min(1, 1 - scrollProgress / 0.12))
-  const footerOpacity = Math.max(0, Math.min(1, (scrollProgress - 0.88) / 0.12))
-  heroEl.style.opacity = heroOpacity
-  footerEl.style.opacity = footerOpacity
+  if (scrollEnabled) {
+    const heroOpacity = Math.max(0, Math.min(1, 1 - scrollProgress / 0.12))
+    const footerOpacity = Math.max(0, Math.min(1, (scrollProgress - 0.88) / 0.12))
+    heroEl.style.opacity = heroOpacity
+    footerEl.style.opacity = footerOpacity
+  }
 
   renderer.render(scene, camera)
 }

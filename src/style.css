@@ -11,6 +11,58 @@ html, body {
   color: #151518;
 }
 
+/* ── Loader ─────────────────────────────────────── */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background: #6CF9D8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease-out;
+}
+
+#loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-inner {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-stars {
+  width: 104px;
+  height: 104px;
+  animation: spin 3s linear infinite;
+}
+
+.loader-pct {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  font-size: 14px;
+  color: #151518;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* ── Canvas ─────────────────────────────────────── */
 #spiral {
   position: fixed;
@@ -42,6 +94,12 @@ html, body {
   justify-content: space-between;
   padding: 24px 24px 0 24px;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+#nav.visible {
+  opacity: 1;
 }
 
 .nav-logo {
@@ -82,7 +140,7 @@ html, body {
 /* ── Hero ───────────────────────────────────────── */
 #hero {
   position: fixed;
-  top: 72px;
+  top: 136px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -91,6 +149,11 @@ html, body {
   align-items: center;
   gap: 32px;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+#hero.visible {
   transition: opacity 0.1s ease-out;
 }
 
