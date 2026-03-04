@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow: hidden;
+  background: #6CF9D8;
+  font-family: 'Geist Mono', monospace;
+  color: #151518;
+}
+
+/* ── Canvas ─────────────────────────────────────── */
+#spiral {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Scroll capture overlay ─────────────────────── */
+#scroll-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+}
+
+/* ── Navigation ─────────────────────────────────── */
+#nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 0 24px;
+  pointer-events: none;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.nav-logo-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.nav-logo-text {
+  width: 71px;
+  height: 10px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  pointer-events: auto;
+}
+
+.nav-links a {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: #151518;
+  text-decoration: none;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+}
+
+/* ── Hero ───────────────────────────────────────── */
+#hero {
+  position: fixed;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  pointer-events: none;
+  transition: opacity 0.1s ease-out;
+}
+
+.hero-emblem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 88px;
+}
+
+.hero-griffin {
+  width: 74px;
+  height: 88px;
+}
+
+.hero-x {
+  width: 20px;
+  height: 20px;
+}
+
+.hero-tagline {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+  color: #151518;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+}
+
+/* ── Footer ─────────────────────────────────────── */
+#footer {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s ease-out;
+}
+
+.footer-stars {
+  width: 104px;
+  height: 104px;
+}
+
+.footer-text {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+  color: #151518;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+}
