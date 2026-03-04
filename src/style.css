@@ -88,7 +88,7 @@ html, body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -135,6 +135,61 @@ html, body {
   color: #151518;
   text-decoration: none;
   font-feature-settings: 'lnum' 1, 'tnum' 1;
+  cursor: pointer;
+}
+
+/* ── Nav link letter roll animation ────────────── */
+.nav-link-wrap {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.nav-link-spacer {
+  visibility: hidden;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.nav-link-default,
+.nav-link-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link-default span,
+.nav-link-hover span {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+/* Default state: default text visible, hover text below */
+.nav-link-default span {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.nav-link-hover span {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+/* Hovered state: default text scrolls up, hover text scrolls into place */
+.hovered .nav-link-default span {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+.hovered .nav-link-hover span {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 /* ── Hero ───────────────────────────────────────── */

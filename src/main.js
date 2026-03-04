@@ -49,15 +49,17 @@ const footerEl = document.getElementById('footer')
 
 let loadingComplete = false
 let loaderStartTime = performance.now()
+let realProgress = 0        // actual loading progress (0-100)
+let displayedProgress = 0   // smoothly animated display value
 
 const loadingManager = new THREE.LoadingManager()
 
 loadingManager.onProgress = (_url, loaded, total) => {
-  const pct = Math.round((loaded / total) * 100)
-  loaderPct.textContent = pct
+  realProgress = Math.round((loaded / total) * 100)
 }
 
 loadingManager.onLoad = () => {
+  realProgress = 100
   loadingComplete = true
 }
 
@@ -81,8 +83,8 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.outputColorSpace = THREE.SRGBColorSpace
-renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 1.2
+renderer.toneMapping = THREE.LinearToneMapping
+renderer.toneMappingExposure = 1.8
 
 // ── Scene ───────────────────────────────────────────────
 const scene = new THREE.Scene()
@@ -100,18 +102,25 @@ camera.position.set(0, 0, 14)
 camera.lookAt(0, 0, 0)
 
 // ── Lights ──────────────────────────────────────────────
-const ambient = new THREE.AmbientLight('#ffffff', 1.0)
+// High ambient so posters stay bright and true to their art
+const ambient = new THREE.AmbientLight('#ffffff', 1.2)
 scene.add(ambient)
 
-const dirLight = new THREE.DirectionalLight('#ffffff', 1.5)
+// Front light from camera direction — adds depth to front-facing posters
+const frontLight = new THREE.DirectionalLight('#ffffff', 1.5)
+frontLight.position.set(0, 2, 14)
+scene.add(frontLight)
+
+const dirLight = new THREE.DirectionalLight('#ffffff', 0.6)
 dirLight.position.set(5, 10, 7)
 scene.add(dirLight)
 
-const backLight = new THREE.DirectionalLight('#ffffff', 0.5)
+// Back light so rear posters have some definition
+const backLight = new THREE.DirectionalLight('#ffffff', 0.4)
 backLight.position.set(-5, -5, -5)
 scene.add(backLight)
 
-const fillLight = new THREE.DirectionalLight('#ffffff', 0.4)
+const fillLight = new THREE.DirectionalLight('#ffffff', 0.5)
 fillLight.position.set(-8, 3, 5)
 scene.add(fillLight)
 
@@ -294,7 +303,7 @@ function easeOutCubic(t) {
 function startIntro() {
   // Fade out loader
   loaderEl.classList.add('fade-out')
-  loaderPct.textContent = '100'
+  loaderPct.textContent = '100%'
 
   // Show nav + hero
   navEl.classList.add('visible')
@@ -312,10 +321,18 @@ function startIntro() {
 }
 
 // ── Check if ready to start intro ────────────────────────
-function checkReady() {
+function checkReady(dt) {
   if (loaderDismissed) return
+
+  // Smoothly animate displayed percentage toward real progress
+  // Speed: covers 0→100 in ~MIN_LOADER_TIME seconds
+  const speed = 100 / MIN_LOADER_TIME
+  displayedProgress = Math.min(realProgress, displayedProgress + speed * dt)
+  const shown = Math.round(displayedProgress)
+  loaderPct.textContent = shown + '%'
+
   const elapsed = (performance.now() - loaderStartTime) / 1000
-  if (loadingComplete && elapsed >= MIN_LOADER_TIME) {
+  if (loadingComplete && elapsed >= MIN_LOADER_TIME && displayedProgress >= 99.5) {
     loaderDismissed = true
     startIntro()
   }
@@ -330,7 +347,7 @@ function animate() {
   const dt = Math.min(clock.getDelta(), 0.05) // cap to avoid jumps
 
   // Check if loading is done
-  checkReady()
+  checkReady(dt)
 
   // ── Intro animation ──────────────────────────────────
   if (introActive) {
@@ -367,6 +384,9 @@ function animate() {
   // Camera stays front-facing, moves down
   camera.position.set(0, camY, 14)
   camera.lookAt(0, camY, 0)
+
+  // Front light follows camera so front-facing posters stay lit
+  frontLight.position.set(0, camY + 2, 14)
 
   // ── Hover detection ───────────────────────────────────
   raycaster.setFromCamera(mouse, camera)
@@ -418,3 +438,70 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix()
   renderer.setSize(window.innerWidth, window.innerHeight)
 })
+
+// ── Nav link letter-roll hover animation ─────────────────
+;(function initNavLetterRoll() {
+  const LETTER_DELAY = 20 // ms per letter stagger
+
+  document.querySelectorAll('.nav-links a').forEach((link) => {
+    const text = link.textContent.trim()
+    const letters = text.split('')
+    const total = letters.length
+
+    // Clear original text
+    link.textContent = ''
+
+    // Wrapper holds spacer + two absolute layers
+    const wrap = document.createElement('span')
+    wrap.className = 'nav-link-wrap'
+
+    // Invisible spacer preserves link width
+    const spacer = document.createElement('span')
+    spacer.className = 'nav-link-spacer'
+    spacer.textContent = text
+    wrap.appendChild(spacer)
+
+    // Default text layer (visible initially)
+    const defaultLayer = document.createElement('span')
+    defaultLayer.className = 'nav-link-default'
+
+    // Hover text layer (hidden below initially)
+    const hoverLayer = document.createElement('span')
+    hoverLayer.className = 'nav-link-hover'
+
+    letters.forEach((char, i) => {
+      const dSpan = document.createElement('span')
+      dSpan.textContent = char === ' ' ? '\u00A0' : char
+      dSpan.style.transitionDelay = `${i * LETTER_DELAY}ms`
+      defaultLayer.appendChild(dSpan)
+
+      const hSpan = document.createElement('span')
+      hSpan.textContent = char === ' ' ? '\u00A0' : char
+      hSpan.style.transitionDelay = `${i * LETTER_DELAY}ms`
+      hoverLayer.appendChild(hSpan)
+    })
+
+    wrap.appendChild(defaultLayer)
+    wrap.appendChild(hoverLayer)
+    link.appendChild(wrap)
+
+    // Hover: forward stagger (left → right), add class
+    link.addEventListener('mouseenter', () => {
+      for (let i = 0; i < total; i++) {
+        defaultLayer.children[i].style.transitionDelay = `${i * LETTER_DELAY}ms`
+        hoverLayer.children[i].style.transitionDelay = `${i * LETTER_DELAY}ms`
+      }
+      link.classList.add('hovered')
+    })
+
+    // Leave: reverse stagger (right → left), remove class
+    link.addEventListener('mouseleave', () => {
+      for (let i = 0; i < total; i++) {
+        const rev = (total - 1 - i) * LETTER_DELAY
+        defaultLayer.children[i].style.transitionDelay = `${rev}ms`
+        hoverLayer.children[i].style.transitionDelay = `${rev}ms`
+      }
+      link.classList.remove('hovered')
+    })
+  })
+})()
