@@ -20,6 +20,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── Page transition ─────────────────────────────────── */
+#page-transition {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 999;
+  transition: opacity 0.5s ease-out;
+}
+#page-transition.done {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* ── Guide layout ────────────────────────────────────── */
 #guide {
   display: flex;
@@ -37,7 +50,15 @@ body {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
+#side-nav.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 
 #side-nav::-webkit-scrollbar {
   width: 0;
@@ -228,6 +249,13 @@ body {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s;
+}
+#guide-content.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ── Page header ─────────────────────────────────────── */

@@ -57,6 +57,7 @@ let loadingComplete = false
 let loaderStartTime = performance.now()
 let realProgress = 0        // actual loading progress (0-100)
 let displayedProgress = 0   // smoothly animated display value
+let skipLoader = false       // true if textures are cached
 
 const loadingManager = new THREE.LoadingManager()
 
@@ -77,6 +78,11 @@ for (const src of POSTER_SRCS) {
   const tex = textureLoader.load(src)
   tex.colorSpace = THREE.SRGBColorSpace
   textureCache.set(src, tex)
+}
+
+// If textures were cached, onLoad fires synchronously — skip the loader
+if (loadingComplete) {
+  skipLoader = true
 }
 
 // ── Renderer ────────────────────────────────────────────
@@ -403,6 +409,20 @@ function startIntro() {
   }, 700)
 }
 
+// Skip loader entirely when assets are cached
+function startInstant() {
+  loaderEl.remove()
+  loaderDismissed = true
+
+  navEl.classList.add('visible')
+  heroEl.classList.add('visible')
+  heroEl.style.opacity = 1
+
+  // Place helix at final position, no intro animation needed
+  helix.position.y = 0
+  scrollEnabled = true
+}
+
 // ── Check if ready to start intro ────────────────────────
 function checkReady(dt) {
   if (loaderDismissed) return
@@ -539,6 +559,9 @@ function animate() {
 
   renderer.render(scene, camera)
 }
+
+// If assets were cached, skip the loader and start immediately
+if (skipLoader) startInstant()
 
 animate()
 

@@ -845,3 +845,12 @@ function setupScrollTracking(pageId) {
 // ── Init ─────────────────────────────────────────────────
 buildNav()
 renderContent('foundations', 'logo')
+
+// Fade in after browser paints the hidden state
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
+    document.getElementById('page-transition').classList.add('done')
+    document.getElementById('side-nav').classList.add('visible')
+    document.getElementById('guide-content').classList.add('visible')
+  })
+})
