@@ -22,9 +22,15 @@ const helixArcPerRad = Math.sqrt(
 const ANGLE_STEP = POSTER_WIDTH / helixArcPerRad
 
 // ── Poster images ─────────────────────────────────────────
-const POSTER_SRCS = Array.from({ length: 30 }, (_, i) =>
-  `/posters/poster${String(i + 1).padStart(2, '0')}.png`
-)
+const POSTER_SRCS = [
+  'acx_fin', 'acx_seal', 'acx_stamp', 'all_sizes', 'bateman_hl',
+  'big_trades', 'cow_acx', 'eth_denver', 'fill_up', 'future_stables',
+  'get_there_1', 'get_there_2', 'get_there_3', 'get_there_4',
+  'hl_no_fees_1', 'hl_no_fess_2', 'hypercore', 'lighter_acx',
+  'megaeth_acx', 'metamask_1', 'metamask_2', 'no_stops',
+  'one_equals_one', 'pancake_acx', 'push_the_tempo', 'size_matters',
+  'uniswap_acx', 'usdt_usdc_free', 'year_horse', 'yo_acx',
+].map(name => `/posters/${name}.png`)
 
 // Seeded shuffle for deterministic random order
 function shuffle(arr, seed = 42) {
@@ -229,6 +235,7 @@ for (let i = 0; i < POSTER_COUNT; i++) {
   mesh.userData.basePosition = centerPos.clone()
   mesh.userData.radial = centerRadial.clone()
   mesh.userData.hoverOffset = 0
+  mesh.userData.posterLabel = posterSrc.replace('/posters/', '').replace('.png', '').toUpperCase()
 
   helix.add(mesh)
   posters.push(mesh)
@@ -241,14 +248,90 @@ let hoveredMesh = null
 
 const scrollTrack = document.getElementById('scroll-track')
 
+let rawCursorX = 0, rawCursorY = 0
+
 scrollTrack.addEventListener('mousemove', (e) => {
   mouse.x = (e.clientX / window.innerWidth) * 2 - 1
   mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
+  rawCursorX = e.clientX
+  rawCursorY = e.clientY
 })
 
 scrollTrack.addEventListener('mouseleave', () => {
   mouse.set(-999, -999)
 })
+
+// ── Poster hover label ──────────────────────────────────
+const posterLabelEl = document.getElementById('poster-label')
+let labelX = 0, labelY = 0
+let labelTargetX = 0, labelTargetY = 0
+let hoverTime = 0
+let labelVisible = false
+let labelTimeouts = []
+const LABEL_DELAY = 0.7
+
+function showLabel(mesh) {
+  labelVisible = true
+
+  // Snap label to cursor immediately on first show
+  labelX = labelTargetX
+  labelY = labelTargetY
+
+  const text = mesh.userData.posterLabel
+  posterLabelEl.innerHTML = ''
+
+  // Create letter spans
+  const spans = []
+  for (const char of text) {
+    const span = document.createElement('span')
+    span.textContent = char
+    posterLabelEl.appendChild(span)
+    spans.push(span)
+  }
+
+  // Start as thin line (no transition)
+  posterLabelEl.style.transition = 'none'
+  posterLabelEl.style.width = '2px'
+  posterLabelEl.style.opacity = '1'
+  posterLabelEl.style.transform = `translate(${labelX}px, ${labelY}px)`
+  posterLabelEl.offsetHeight // force reflow
+
+  // Measure full width
+  posterLabelEl.style.width = 'auto'
+  const fullWidth = posterLabelEl.offsetWidth
+  posterLabelEl.style.width = '2px'
+  posterLabelEl.offsetHeight
+
+  // Expand rectangle from line to full width
+  posterLabelEl.style.transition = 'width 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+  posterLabelEl.style.width = fullWidth + 'px'
+
+  // Stagger letters with decreasing delay
+  let cumDelay = 100
+  let gap = 55
+  const MIN_GAP = 18
+  const GAP_DECAY = 6
+
+  spans.forEach((span, i) => {
+    const tid = setTimeout(() => {
+      span.style.opacity = '1'
+      span.style.transform = 'translateY(0)'
+    }, cumDelay)
+    labelTimeouts.push(tid)
+    cumDelay += gap
+    gap = Math.max(MIN_GAP, gap - GAP_DECAY)
+  })
+}
+
+function hideLabel() {
+  labelVisible = false
+  // Clear pending letter timeouts
+  labelTimeouts.forEach(clearTimeout)
+  labelTimeouts = []
+  posterLabelEl.style.transition = 'opacity 0.15s ease-out, width 0.25s ease-in'
+  posterLabelEl.style.opacity = '0'
+  posterLabelEl.style.width = '2px'
+}
 
 // ── Scroll state (velocity-based smoothing) ──────────────
 let scrollProgress = 0
@@ -389,6 +472,7 @@ function animate() {
   frontLight.position.set(0, camY + 2, 14)
 
   // ── Hover detection ───────────────────────────────────
+  const prevHovered = hoveredMesh
   raycaster.setFromCamera(mouse, camera)
   const intersects = raycaster.intersectObjects(posters)
   const newHovered = intersects.length > 0 ? intersects[0].object : null
@@ -401,6 +485,32 @@ function animate() {
     if (hoveredMesh) {
       canvas.style.cursor = 'pointer'
     }
+  }
+
+  // ── Poster hover label ─────────────────────────────────
+  if (hoveredMesh !== prevHovered) {
+    hoverTime = 0
+    if (labelVisible) hideLabel()
+  }
+
+  if (hoveredMesh) {
+    hoverTime += dt
+    labelTargetX = rawCursorX + 18
+    labelTargetY = rawCursorY + 18
+
+    if (hoverTime >= LABEL_DELAY && !labelVisible) {
+      showLabel(hoveredMesh)
+    }
+
+    if (labelVisible) {
+      const lf = 1 - Math.exp(-8 * dt)
+      labelX += (labelTargetX - labelX) * lf
+      labelY += (labelTargetY - labelY) * lf
+      posterLabelEl.style.transform = `translate(${labelX}px, ${labelY}px)`
+    }
+  } else {
+    if (labelVisible) hideLabel()
+    hoverTime = 0
   }
 
   // ── Animate hover offset for each poster ──────────────

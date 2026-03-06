@@ -72,6 +72,35 @@ html, body {
   height: 100%;
 }
 
+/* ── Poster hover label ────────────────────────── */
+#poster-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  pointer-events: none;
+  height: 26px;
+  background: #6CF9D8;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  width: 2px;
+}
+
+#poster-label span {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  font-size: 11px;
+  color: #151518;
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.18s ease-out, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 /* ── Scroll capture overlay ─────────────────────── */
 #scroll-track {
   position: fixed;

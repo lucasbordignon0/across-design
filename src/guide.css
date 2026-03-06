@@ -1,0 +1,689 @@
+/* ═══════════════════════════════════════════════════════
+   Across Design — Guide / Interior Pages
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Reset ───────────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Geist Mono', monospace;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+  background: #fff;
+  color: #151518;
+  overflow: hidden;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Guide layout ────────────────────────────────────── */
+#guide {
+  display: flex;
+  height: 100vh;
+}
+
+/* ── Side nav ────────────────────────────────────────── */
+#side-nav {
+  width: 280px;
+  min-width: 280px;
+  height: 100vh;
+  background: #fff;
+  border-right: 0.5px solid #e8e8e8;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#side-nav::-webkit-scrollbar {
+  width: 0;
+}
+
+/* ── Nav section (bordered cell) ─────────────────────── */
+.sn-section {
+  padding: 20px;
+  border-bottom: 0.5px solid #e8e8e8;
+  flex-shrink: 0;
+}
+
+/* ── Logo ────────────────────────────────────────────── */
+.sn-logo a {
+  display: block;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.sn-logo img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+/* ── Info ─────────────────────────────────────────────── */
+.sn-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.sn-info .muted {
+  opacity: 0.3;
+}
+
+/* ── Category (Foundations / Language / Resources) ────── */
+.sn-category {
+  padding: 20px;
+  border-bottom: 0.5px solid #e8e8e8;
+  flex-shrink: 0;
+}
+
+.category-header {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 1.2;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.15s ease;
+}
+
+.category-header:hover {
+  opacity: 0.5;
+}
+
+/* Category pages accordion (grid trick for smooth animation) */
+.category-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sn-category.open .category-body {
+  grid-template-rows: 1fr;
+}
+
+.category-body-inner {
+  overflow: hidden;
+}
+
+.category-pages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 12px;
+  padding-top: 15px;
+}
+
+/* ── Page item ───────────────────────────────────────── */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  transition: opacity 0.15s ease;
+}
+
+.page-header:hover {
+  opacity: 0.5;
+}
+
+.page-chevron {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-chevron svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page-item.active .page-chevron svg {
+  transform: rotate(90deg);
+}
+
+/* Page sections accordion */
+.page-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page-item.active .page-body {
+  grid-template-rows: 1fr;
+}
+
+.page-body-inner {
+  overflow: hidden;
+}
+
+.page-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 12px;
+  padding-top: 8px;
+  position: relative;
+}
+
+/* ── Section link ────────────────────────────────────── */
+.section-link {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #151518;
+  opacity: 0.3;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  transition: opacity 0.15s ease;
+  white-space: nowrap;
+}
+
+.section-link:hover {
+  opacity: 0.55;
+}
+
+.section-link.active {
+  opacity: 1;
+}
+
+/* ── Scroll-tracking dot ─────────────────────────────── */
+.section-dot {
+  position: absolute;
+  left: 0px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #6CF9D8;
+  pointer-events: none;
+  opacity: 0;
+  transition: top 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.section-dot.visible {
+  opacity: 1;
+}
+
+/* ── Content area ────────────────────────────────────── */
+#guide-content {
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ── Page header ─────────────────────────────────────── */
+.content-header {
+  background: #e8e8e8;
+  height: 320px;
+  padding: 40px;
+  display: flex;
+  align-items: flex-end;
+}
+
+
+.content-header-text {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.content-header-category {
+  font-weight: 500;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.content-header-title {
+  font-weight: 400;
+  width: 400px;
+}
+
+/* ── Content sections ────────────────────────────────── */
+.content-section {
+  padding: 40px;
+  border-bottom: 0.5px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ── Section text (two-column layout) ────────────────── */
+.section-text {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.section-desc {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 400px;
+  width: 400px;
+}
+
+.section-desc p {
+  margin-bottom: 12px;
+}
+
+.section-desc p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Section images ──────────────────────────────────── */
+.section-image img {
+  width: 100%;
+  display: block;
+  border-radius: 2px;
+}
+
+.section-images-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section-images-stack img {
+  width: 100%;
+  display: block;
+  border-radius: 2px;
+}
+
+/* ── Cards row (Alt logos, Experimentations) ──────────── */
+.section-cards-row {
+  display: flex;
+  gap: 20px;
+}
+
+.section-card {
+  flex: 1;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.section-card img {
+  width: 100%;
+  display: block;
+}
+
+.section-card-label {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  color: #6CF9D8;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── Resources section ───────────────────────────────── */
+.section-resources {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 400px;
+}
+
+.resource-card {
+  height: 190px;
+  background: #fff;
+  border: 0.5px solid #e8e8e8;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.resource-card:hover {
+  background: #f8f8f8;
+}
+
+.resource-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.resource-card-name {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.resource-card-format {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.3;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.resource-card-icon {
+  align-self: flex-end;
+}
+
+.resource-card-icon svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.3;
+}
+
+/* ── Logo Playground ─────────────────────────────────── */
+.playground {
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid #e8e8e8;
+  overflow: hidden;
+}
+
+.playground-canvas {
+  position: relative;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  transition: background-color 0.4s ease;
+}
+
+.playground-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.4s ease, width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.playground-logo svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Controls panel */
+.playground-controls {
+  display: flex;
+  flex-direction: column;
+  border-top: 0.5px solid #e8e8e8;
+}
+
+.playground-row {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 0.5px solid #e8e8e8;
+  gap: 16px;
+}
+
+.playground-row:last-child {
+  border-bottom: none;
+}
+
+.playground-row--picker {
+  align-items: flex-start;
+}
+
+.playground-row--picker .playground-label {
+  padding-top: 4px;
+}
+
+.playground-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.4;
+  width: 100px;
+  flex-shrink: 0;
+}
+
+/* Color swatches */
+.playground-swatches {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.playground-swatch {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.playground-swatch:hover {
+  transform: scale(1.15);
+}
+
+.playground-swatch.active {
+  border-color: #151518;
+}
+
+.playground-swatch--light {
+  box-shadow: inset 0 0 0 0.5px #d4d4d4;
+}
+
+/* Hex input */
+.playground-hex {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 2px 0;
+  width: 72px;
+  color: #151518;
+  outline: none;
+  margin-left: auto;
+}
+
+.playground-hex:focus {
+  border-bottom-color: #151518;
+}
+
+/* Custom color picker */
+.playground-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.playground-picker-area {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  cursor: crosshair;
+  user-select: none;
+  touch-action: none;
+  overflow: hidden;
+}
+
+.playground-picker-area-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, #000, transparent),
+    linear-gradient(to right, #fff, transparent);
+}
+
+.playground-picker-cursor {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.playground-picker-hue {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(to right,
+    #f00 0%, #ff0 17%, #0f0 33%,
+    #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+  cursor: crosshair;
+  user-select: none;
+  touch-action: none;
+}
+
+.playground-picker-hue-cursor {
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 14px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+/* Size slider */
+.playground-slider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.playground-slider input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 1px;
+  background: #d4d4d4;
+  outline: none;
+}
+
+.playground-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #151518;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.playground-slider input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+}
+
+.playground-slider-value {
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.4;
+  width: 48px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Variation toggles */
+.playground-toggles {
+  display: flex;
+}
+
+.playground-toggle {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  padding: 6px 14px;
+  border: 0.5px solid #e8e8e8;
+  background: none;
+  cursor: pointer;
+  color: #151518;
+  opacity: 0.35;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.playground-toggle:last-child {
+  border-left: none;
+}
+
+.playground-toggle.active {
+  opacity: 1;
+  background: #f0f0f0;
+}
+
+/* Logo color indicator */
+.playground-color-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.playground-color-dot {
+  width: 8px;
+  height: 8px;
+  transition: background-color 0.4s ease;
+}
+
+.playground-color-dot--light {
+  box-shadow: inset 0 0 0 0.5px #d4d4d4;
+}
+
+.playground-color-name {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.4;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── Page footer ─────────────────────────────────────── */
+.content-footer {
+  background: #e8e8e8;
+  padding: 40px;
+  display: flex;
+  gap: 40px;
+}
+
+.content-footer-col {
+  flex: 1;
+  font-size: 10px;
+  font-weight: 300;
+  line-height: 1.5;
+  opacity: 0.5;
+}
