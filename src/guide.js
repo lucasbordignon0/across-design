@@ -3,6 +3,13 @@ import '@fontsource/geist-mono/300.css'
 import '@fontsource/geist-mono/400.css'
 import '@fontsource/geist-mono/500.css'
 
+// ── Build date ──────────────────────────────────────────
+function formatBuildDate() {
+  const d = new Date(__BUILD_DATE__)
+  const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec']
+  return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`
+}
+
 // ── Navigation data ──────────────────────────────────────
 const NAV_DATA = [
   {
@@ -500,7 +507,7 @@ function buildNav() {
   infoSection.innerHTML = `
     <span>across® protocol</span>
     <span>visual identity guidelines</span>
-    <span class="muted">last updated: mar 6, 2026</span>
+    <span class="muted">last updated: ${formatBuildDate()}</span>
   `
   sideNav.appendChild(infoSection)
 
