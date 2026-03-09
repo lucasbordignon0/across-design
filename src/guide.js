@@ -1,7 +1,15 @@
 import './guide.css'
+import '@fontsource/geist-mono/200.css'
 import '@fontsource/geist-mono/300.css'
 import '@fontsource/geist-mono/400.css'
 import '@fontsource/geist-mono/500.css'
+import '@fontsource/geist-mono/600.css'
+import '@fontsource/geist-mono/700.css'
+import '@fontsource/barlow/300.css'
+import '@fontsource/barlow/400.css'
+import '@fontsource/barlow/500.css'
+import '@fontsource/barlow/600.css'
+import '@fontsource/barlow/700.css'
 
 // ── Build date ──────────────────────────────────────────
 function formatBuildDate() {
@@ -30,23 +38,56 @@ const NAV_DATA = [
           { id: 'logo-resources', label: 'Resources' },
         ],
       },
-      { id: 'colors', label: 'Colors', sections: [] },
-      { id: 'typography', label: 'Typography', sections: [] },
-      { id: 'motion', label: 'Motion', sections: [] },
-      { id: 'iconography', label: 'Iconography', sections: [] },
-      { id: 'photography', label: 'Photography', sections: [] },
-      { id: 'illustration', label: 'Illustration', sections: [] },
+      {
+        id: 'colors',
+        label: 'Colors',
+        sections: [
+          { id: 'primary-colors', label: 'Primary Colors' },
+          { id: 'color-shades', label: 'Shades' },
+          { id: 'color-transparency', label: 'Transparency' },
+          { id: 'functional-colors', label: 'Functional Colors' },
+        ],
+      },
+      {
+        id: 'typography',
+        label: 'Typography',
+        sections: [
+          { id: 'type-overview', label: 'Overview' },
+          { id: 'type-ivypresto', label: 'IvyPresto Headline' },
+          { id: 'type-barlow', label: 'Barlow' },
+          { id: 'type-geist-mono', label: 'Geist Mono' },
+          { id: 'type-scale', label: 'Type Scale' },
+          { id: 'type-usage', label: 'Usage' },
+          { id: 'type-exploration', label: 'Exploration' },
+        ],
+      },
+      { id: 'motion', label: 'Motion', sections: [], comingSoon: true },
+      {
+        id: 'iconography',
+        label: 'Iconography',
+        sections: [{ id: 'icon-overview', label: 'Overview' }],
+      },
+      { id: 'photography', label: 'Photography', sections: [], comingSoon: true },
+      { id: 'illustration', label: 'Illustration', sections: [], comingSoon: true },
     ],
   },
   {
     id: 'language',
     label: 'Language',
-    pages: [],
+    pages: [
+      { id: 'language-overview', label: 'Overview', sections: [], comingSoon: true },
+    ],
   },
   {
     id: 'resources',
     label: 'Resources',
-    pages: [],
+    pages: [
+      {
+        id: 'resources-downloads',
+        label: 'Downloads',
+        sections: [{ id: 'res-downloads', label: 'Downloads' }],
+      },
+    ],
   },
 ]
 
@@ -197,6 +238,302 @@ const PAGE_CONTENT = {
       },
     },
   },
+  colors: {
+    sections: {
+      'primary-colors': {
+        desc: 'The Across color palette is built around three primary colors — Aqua, Dark Gray, and Bright Gray. These form the foundation of all brand communications and should be used consistently across every touchpoint.\n\nAqua serves as the signature brand color, Dark Gray provides depth and contrast, and Bright Gray offers a clean, modern complement.',
+        layout: 'color-blocks',
+        colors: [
+          { name: 'Aqua', hex: '#6CF9D8' },
+          { name: 'Dark Gray', hex: '#2D2E33' },
+          { name: 'Bright Gray', hex: '#E0F3FF' },
+        ],
+      },
+      'color-shades': {
+        desc: 'Each primary color extends into a full shade scale for flexible application across interfaces, illustrations, and layouts. Use lighter values for backgrounds and subtle accents, deeper values for emphasis and text.\n\nMaintain visual hierarchy by pairing shades intentionally — avoid combining shades that are too similar in value.',
+        layout: 'color-shades',
+        columns: [
+          {
+            name: 'Aqua',
+            shades: [
+              { step: '100', hex: '#BDFCED' },
+              { step: '200', hex: '#98FBE4' },
+              { step: '300', hex: '#6CF9D8' },
+              { step: '400', hex: '#66E5C7' },
+              { step: '500', hex: '#59BCA6' },
+              { step: '600', hex: '#4D9385' },
+              { step: '700', hex: '#406B65' },
+              { step: '800', hex: '#3A5754' },
+              { step: '900', hex: '#334244' },
+            ],
+          },
+          {
+            name: 'Neutrals',
+            shades: [
+              { step: '000', hex: '#FFFFFF' },
+              { step: '025', hex: '#E0F3FF' },
+              { step: '050', hex: '#CEDFEB' },
+              { step: '100', hex: '#AAB8C2' },
+              { step: '200', hex: '#869099' },
+              { step: '300', hex: '#636970' },
+              { step: '400', hex: '#51555C' },
+              { step: '500', hex: '#3F4247' },
+              { step: '600', hex: '#34353B' },
+              { step: '700', hex: '#2D2E33' },
+              { step: '800', hex: '#202024' },
+              { step: '850', hex: '#1B1B1E' },
+              { step: '900', hex: '#151518' },
+            ],
+          },
+        ],
+      },
+      'color-transparency': {
+        desc: 'Transparency variants allow primary colors to be layered over backgrounds while preserving underlying content. Use these values for overlays, glass effects, and subtle color washes.\n\nAll values are derived from the primary color palette and should be used at the specified opacity levels only.',
+        layout: 'color-transparency',
+        columns: [
+          {
+            name: 'Aqua',
+            base: '#6CF9D8',
+            levels: ['5', '10', '20', '30', '40', '50', '60', '70', '80', '90'],
+          },
+          {
+            name: 'Bright Gray',
+            base: '#E0F3FF',
+            levels: ['5', '10', '20', '30', '40', '50', '60', '70', '80', '90'],
+          },
+          {
+            name: 'Dark Gray',
+            base: '#2D2E33',
+            levels: ['5', '10', '20', '30', '40', '50', '60', '70', '80', '90'],
+            lightBg: true,
+          },
+        ],
+      },
+      'functional-colors': {
+        desc: 'Functional colors serve specific UI communication purposes — Blue for information and links, Yellow for warnings and attention, Red for errors and destructive actions.\n\nThese colors should be reserved for their designated functions to maintain consistent meaning across the product experience.',
+        layout: 'color-blocks',
+        colors: [
+          { name: 'Blue', hex: '#44D2FF' },
+          { name: 'Yellow', hex: '#F9D26C' },
+          { name: 'Red', hex: '#F96C6C' },
+        ],
+      },
+    },
+  },
+  typography: {
+    sections: {
+      'type-overview': {
+        desc: 'Typography plays a central role in the Across identity system. Our type palette balances expressive editorial character with functional clarity across web, product, and marketing.\n\nThree typefaces form the foundation: IvyPresto Headline for headlines, Barlow for body and UI copy, and Geist Mono for code and data.',
+        layout: 'type-overview',
+        families: [
+          { font: 'ivypresto-headline', label: 'IvyPresto Headline', role: 'Headlines & Editorial', sample: 'The Fastest Way to Move Money Onchain', weight: 600, url: 'https://fonts.adobe.com/fonts/ivypresto-headline' },
+          { font: 'Barlow', label: 'Barlow', role: 'Body & UI', sample: 'The Fastest Way to Move Money Onchain', weight: 600, url: 'https://fonts.google.com/specimen/Barlow' },
+          { font: 'Geist Mono', label: 'Geist Mono', role: 'Monospace & Code', sample: 'The Fastest Way to Move Money Onchain', weight: 400, url: 'https://fonts.google.com/specimen/Geist+Mono' },
+        ],
+      },
+      'type-ivypresto': {
+        desc: 'IvyPresto Headline is a high-contrast serif typeface used for headline-level typography across the Across brand. It brings an editorial, premium feel to marketing pages and hero moments.\n\nLoaded via Adobe Fonts (Typekit). Use it sparingly — exclusively for large display text and headlines, never for body copy or UI elements.',
+        layout: 'type-specimen',
+        font: 'ivypresto-headline',
+        label: 'IvyPresto Headline',
+        weights: [
+          { value: 100, name: 'Thin' },
+          { value: 300, name: 'Light' },
+          { value: 400, name: 'Regular' },
+          { value: 600, name: 'SemiBold' },
+          { value: 700, name: 'Bold' },
+        ],
+      },
+      'type-barlow': {
+        desc: 'Barlow is the primary typeface for body text, subtitles, and UI elements. It is a slightly rounded, low-contrast grotesk that offers excellent readability at small sizes while maintaining a modern, approachable feel.\n\nAvailable via Google Fonts. Use across body copy, navigation, buttons, form elements, and any functional text throughout the product and marketing.',
+        layout: 'type-specimen',
+        font: 'Barlow',
+        label: 'Barlow',
+        weights: [
+          { value: 300, name: 'Light' },
+          { value: 400, name: 'Regular' },
+          { value: 500, name: 'Medium' },
+          { value: 600, name: 'SemiBold' },
+          { value: 700, name: 'Bold' },
+        ],
+      },
+      'type-geist-mono': {
+        desc: 'Geist Mono is the monospaced counterpart used for code snippets, transaction hashes, wallet addresses, technical data, and the brand guidelines system itself.\n\nIts consistent character widths make it ideal for tabular data, developer-facing content, and any context where alignment and precision matter.',
+        layout: 'type-specimen',
+        font: 'Geist Mono',
+        label: 'Geist Mono',
+        weights: [
+          { value: 200, name: 'ExtraLight' },
+          { value: 300, name: 'Light' },
+          { value: 400, name: 'Regular' },
+          { value: 500, name: 'Medium' },
+          { value: 600, name: 'SemiBold' },
+          { value: 700, name: 'Bold' },
+        ],
+      },
+      'type-scale': {
+        desc: 'The Across type scale defines consistent sizing across the product and marketing. Display sizes use IvyPresto Headline for high-impact moments. Heading, Body, and Label sizes use Barlow for functional hierarchy.\n\nMono sizes use Geist Mono for code and data contexts. Always maintain proper hierarchy — never skip more than two scale steps between adjacent elements.',
+        layout: 'type-scale',
+        groups: [
+          {
+            name: 'Display',
+            font: 'ivypresto-headline',
+            sizes: [
+              { label: 'Display-XX Large', size: 72, weight: 400, lineHeight: 1.1 },
+              { label: 'Display-X Large', size: 56, weight: 400, lineHeight: 1.15 },
+              { label: 'Display-Large', size: 44, weight: 400, lineHeight: 1.2 },
+              { label: 'Display-Medium', size: 36, weight: 400, lineHeight: 1.25 },
+              { label: 'Display-Small', size: 28, weight: 400, lineHeight: 1.3 },
+            ],
+          },
+          {
+            name: 'Heading',
+            font: 'Barlow',
+            sizes: [
+              { label: 'Heading-XX Large', size: 36, weight: 600, lineHeight: 1.2 },
+              { label: 'Heading-X Large', size: 28, weight: 600, lineHeight: 1.25 },
+              { label: 'Heading-Large', size: 22, weight: 600, lineHeight: 1.3 },
+              { label: 'Heading-Medium', size: 18, weight: 600, lineHeight: 1.35 },
+              { label: 'Heading-Small', size: 16, weight: 600, lineHeight: 1.4 },
+              { label: 'Heading-X Small', size: 14, weight: 600, lineHeight: 1.4 },
+            ],
+          },
+          {
+            name: 'Label',
+            font: 'Barlow',
+            sizes: [
+              { label: 'Label-Large', size: 16, weight: 500, lineHeight: 1.4 },
+              { label: 'Label-Medium', size: 14, weight: 500, lineHeight: 1.4 },
+              { label: 'Label-Small', size: 12, weight: 500, lineHeight: 1.4 },
+              { label: 'Label-X Small', size: 11, weight: 500, lineHeight: 1.4 },
+            ],
+          },
+          {
+            name: 'Body',
+            font: 'Barlow',
+            sizes: [
+              { label: 'Body-Large', size: 18, weight: 400, lineHeight: 1.6 },
+              { label: 'Body-Medium', size: 16, weight: 400, lineHeight: 1.6 },
+              { label: 'Body-Small', size: 14, weight: 400, lineHeight: 1.6 },
+              { label: 'Body-X Small', size: 12, weight: 400, lineHeight: 1.5 },
+            ],
+          },
+          {
+            name: 'Mono',
+            font: 'Geist Mono',
+            sizes: [
+              { label: 'Mono-Large', size: 16, weight: 400, lineHeight: 1.5 },
+              { label: 'Mono-Medium', size: 14, weight: 400, lineHeight: 1.5 },
+              { label: 'Mono-Small', size: 12, weight: 400, lineHeight: 1.5 },
+              { label: 'Mono-X Small', size: 11, weight: 400, lineHeight: 1.5 },
+            ],
+          },
+        ],
+      },
+      'type-usage': {
+        desc: 'Good typesetting requires a discerning eye. Below are some universal principles to follow when setting type that helps ensure consistency and high legibility.\n\n* Leading can be adjusted up to 100% on headlines to avoid ascenders and descenders overlapping.',
+        layout: 'type-usage',
+        blocks: [
+          {
+            role: 'Headline',
+            font: 'ivypresto-headline',
+            fontLabel: 'IvyPresto Headline',
+            weight: 400,
+            leading: '110%*',
+            tracking: '-1%',
+            sample: 'Do more with your money',
+            sampleSize: 80,
+            sampleLineHeight: 1.1,
+            sampleLetterSpacing: -0.8,
+          },
+          {
+            role: 'Subtitle',
+            font: 'Barlow',
+            fontLabel: 'Barlow Medium',
+            weight: 500,
+            leading: '110%',
+            tracking: '-4%',
+            sample: 'The fastest bridge in crypto with the lowest fees',
+            sampleSize: 32,
+            sampleLineHeight: 1.1,
+            sampleLetterSpacing: -1.28,
+          },
+          {
+            role: 'Body',
+            font: 'Barlow',
+            fontLabel: 'Barlow Medium',
+            weight: 500,
+            leading: '150%',
+            tracking: '-1%',
+            sample: 'Body text is regular width and regular weight. Typography is a crucial aspect of any design project, as it can make or break the readability and overall aesthetic of the final product. The choice of font, size, spacing, and color all play a significant role in how the text is perceived by the viewer.',
+            sampleSize: 16,
+            sampleLineHeight: 1.5,
+            sampleLetterSpacing: -0.16,
+          },
+          {
+            role: 'Eyebrow',
+            font: 'Barlow',
+            fontLabel: 'Barlow Medium',
+            weight: 500,
+            leading: '130%',
+            tracking: '0%',
+            transform: 'uppercase',
+            sample: 'Category label or section identifier',
+            sampleSize: 14,
+            sampleLineHeight: 1.3,
+            sampleLetterSpacing: 0,
+          },
+          {
+            role: 'Eyebrow (Mono)',
+            font: 'Geist Mono',
+            fontLabel: 'Geist Mono',
+            weight: 500,
+            leading: '130%',
+            tracking: '5%',
+            transform: 'uppercase',
+            sample: 'Technical data or tertiary information',
+            sampleSize: 12,
+            sampleLineHeight: 1.3,
+            sampleLetterSpacing: 0.6,
+          },
+        ],
+      },
+      'type-exploration': {
+        desc: 'The Across brand is intentionally open when it comes to typographic expression. For exploration material, marketing campaigns, and editorial content, other typefaces can be used to push the visual language.\n\nThese explorations are intended for creative, limited-use contexts — not for core product UI or standard brand communications.',
+        layout: 'cards',
+        cards: [
+          { image: '/images/typography/typoAssets01.png' },
+          { image: '/images/typography/typoAssets02.png' },
+          { image: '/images/typography/typoAssets03.png' },
+        ],
+      },
+    },
+  },
+  iconography: {
+    sections: {
+      'icon-overview': {
+        desc: 'Across uses the Central Icon System by Iconists — a comprehensive, handcrafted icon library built on a 24×24 grid with a 20×20 live area.\n\nThe system provides 440+ symbols across 30 variations each, with optimized stroke weights and corner radii that adapt to different contexts and sizes.',
+        layout: 'icon-feature',
+        url: 'https://iconists.co/central',
+        linkLabel: 'Browse Central Icon System ↗',
+      },
+    },
+  },
+  'resources-downloads': {
+    sections: {
+      'res-downloads': {
+        desc: 'Download approved brand assets. All files are provided in production-ready formats for various use cases.',
+        layout: 'resources',
+        resources: [
+          { name: 'All Assets', format: 'ZIP', file: '/Across_Assets.zip' },
+          { name: 'Logo Assets', format: 'ZIP', file: '/Across_Logo_Assets.zip' },
+          { name: 'Alt Logos', format: 'ZIP', file: '/Across_Alt_Logos.zip' },
+          { name: 'Gradients', format: 'ZIP', file: '/Across_Gradients.zip' },
+          { name: 'Main Colors', format: 'ZIP', file: '/Across_Main_Colors.zip' },
+        ],
+      },
+    },
+  },
 }
 
 // ── Helpers ──────────────────────────────────────────────
@@ -205,6 +542,117 @@ function formatDesc(text) {
     .split('\n\n')
     .map((p) => `<p>${p}</p>`)
     .join('')
+}
+
+// ── Copy to clipboard helper ────────────────────────────
+function copyColor(value, feedbackEl) {
+  navigator.clipboard.writeText(value).then(() => {
+    feedbackEl.classList.add('copied')
+    const orig = feedbackEl.textContent
+    feedbackEl.textContent = 'Copied!'
+    setTimeout(() => {
+      feedbackEl.textContent = orig
+      feedbackEl.classList.remove('copied')
+    }, 1000)
+  })
+}
+
+// ── Poster-style hover copy label ────────────────────────
+function initCopyLabel(el, value) {
+  const label = document.createElement('div')
+  label.className = 'cb-label'
+  el.appendChild(label)
+
+  let timeouts = []
+  let isVisible = false
+  let copied = false
+
+  function showText(text) {
+    label.innerHTML = ''
+    const spans = []
+    for (const char of text) {
+      const span = document.createElement('span')
+      span.textContent = char
+      label.appendChild(span)
+      spans.push(span)
+    }
+
+    // Start as thin line
+    label.style.transition = 'none'
+    label.style.width = '2px'
+    label.style.opacity = '1'
+    label.offsetHeight
+
+    // Measure full width
+    label.style.width = 'auto'
+    const fullWidth = label.offsetWidth
+    label.style.width = '2px'
+    label.offsetHeight
+
+    // Expand
+    label.style.transition = 'width 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+    label.style.width = fullWidth + 'px'
+
+    // Stagger letters
+    let cumDelay = 100
+    let gap = 55
+    spans.forEach((span) => {
+      const tid = setTimeout(() => {
+        span.style.opacity = '1'
+        span.style.transform = 'translateY(0)'
+      }, cumDelay)
+      timeouts.push(tid)
+      cumDelay += gap
+      gap = Math.max(18, gap - 6)
+    })
+  }
+
+  function hideLabel() {
+    isVisible = false
+    timeouts.forEach(clearTimeout)
+    timeouts = []
+    label.style.transition = 'opacity 0.15s ease-out, width 0.25s ease-in'
+    label.style.opacity = '0'
+    label.style.width = '2px'
+  }
+
+  el.addEventListener('mouseenter', (e) => {
+    if (copied) return
+    isVisible = true
+    label.style.left = (e.offsetX + 10) + 'px'
+    label.style.top = (e.offsetY - 13) + 'px'
+    showText('COPY')
+  })
+
+  el.addEventListener('mousemove', (e) => {
+    if (!isVisible) return
+    label.style.left = (e.offsetX + 10) + 'px'
+    label.style.top = (e.offsetY - 13) + 'px'
+  })
+
+  el.addEventListener('mouseleave', () => {
+    hideLabel()
+    copied = false
+  })
+
+  el.addEventListener('click', () => {
+    navigator.clipboard.writeText(value).then(() => {
+      copied = true
+      timeouts.forEach(clearTimeout)
+      timeouts = []
+      hideLabel()
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          isVisible = true
+          showText('COPIED')
+          setTimeout(() => {
+            hideLabel()
+            copied = false
+          }, 1200)
+        })
+      })
+    })
+  })
 }
 
 // ── Build Logo Playground ────────────────────────────────
@@ -481,8 +929,8 @@ function buildPlayground(sectionEl) {
 }
 
 // ── State ────────────────────────────────────────────────
-let openCategoryId = 'foundations'
-let activePageId = 'logo'
+let openCategoryId = null
+let activePageId = null
 let activeSectionId = null
 let scrollObserver = null
 
@@ -550,14 +998,21 @@ function buildNav() {
 
         const pageName = document.createElement('span')
         pageName.textContent = page.label
-
-        const chevron = document.createElement('span')
-        chevron.className = 'page-chevron'
-        chevron.innerHTML = CHEVRON_SVG
-
         pageHeader.appendChild(pageName)
-        pageHeader.appendChild(chevron)
-        pageHeader.addEventListener('click', () => selectPage(cat.id, page.id))
+
+        if (page.comingSoon) {
+          const badge = document.createElement('span')
+          badge.className = 'page-coming-soon'
+          badge.textContent = 'Coming Soon'
+          pageHeader.appendChild(badge)
+          pageHeader.classList.add('page-header--disabled')
+        } else {
+          const chevron = document.createElement('span')
+          chevron.className = 'page-chevron'
+          chevron.innerHTML = CHEVRON_SVG
+          pageHeader.appendChild(chevron)
+          pageHeader.addEventListener('click', () => selectPage(cat.id, page.id))
+        }
         pageItem.appendChild(pageHeader)
 
         // Page sections (sub-accordion)
@@ -607,6 +1062,60 @@ function buildNav() {
   }
 }
 
+// ── Hash-based routing ───────────────────────────────────
+// Format: #pageId
+function updateHash(pageId) {
+  const hash = `#${pageId}`
+  if (location.hash !== hash) {
+    history.pushState(null, '', hash)
+  }
+}
+
+function findPageCategory(pageId) {
+  for (const cat of NAV_DATA) {
+    if (cat.pages.find((p) => p.id === pageId)) return cat.id
+  }
+  return null
+}
+
+function navigateFromHash() {
+  const hashStr = location.hash.replace(/^#/, '')
+  const params = new URLSearchParams(hashStr)
+  // Support ?figmapage=<id> inside the hash for Figma captures
+  const raw = params.get('figmapage') || hashStr.split('&')[0]
+  if (!raw || raw.startsWith('figmacapture')) {
+    // Default: first page
+    const defaultCat = NAV_DATA[0]
+    const defaultPage = defaultCat.pages[0]
+    toggleCategory(defaultCat.id)
+    return
+  }
+
+  const pageId = raw
+  const categoryId = findPageCategory(pageId)
+  if (!categoryId) {
+    // Unknown page, fall back to default
+    const defaultCat = NAV_DATA[0]
+    toggleCategory(defaultCat.id)
+    return
+  }
+
+  // Open correct category + page
+  if (openCategoryId !== categoryId) {
+    const prevCat = sideNav.querySelector(`.sn-category[data-category="${openCategoryId}"]`)
+    if (prevCat) prevCat.classList.remove('open')
+    openCategoryId = categoryId
+    const newCat = sideNav.querySelector(`.sn-category[data-category="${categoryId}"]`)
+    if (newCat) newCat.classList.add('open')
+  }
+
+  selectPage(categoryId, pageId)
+}
+
+window.addEventListener('popstate', () => {
+  navigateFromHash()
+})
+
 // ── Toggle category accordion ────────────────────────────
 function toggleCategory(categoryId) {
   if (openCategoryId === categoryId) return // already open
@@ -639,6 +1148,9 @@ function selectPage(categoryId, pageId) {
   activePageId = pageId
   const newPageItem = sideNav.querySelector(`.page-item[data-page="${pageId}"]`)
   if (newPageItem) newPageItem.classList.add('active')
+
+  // Update URL hash (push so back button works between pages)
+  updateHash(pageId)
 
   // Render content
   renderContent(categoryId, pageId)
@@ -729,6 +1241,24 @@ function renderContent(categoryId, pageId) {
       }
       sectionEl.appendChild(row)
 
+    } else if (data.layout === 'icon-feature') {
+      const card = document.createElement('a')
+      card.className = 'icon-feature-card'
+      card.href = data.url
+      card.target = '_blank'
+      card.rel = 'noopener noreferrer'
+      card.innerHTML = `
+        <div class="icon-feature-top">
+          <img src="/images/iconography/central.webp" alt="Central Icon System – weight variations" class="icon-feature-img" />
+        </div>
+        <div class="icon-feature-bar">
+          <span class="icon-feature-name">Central Icon System</span>
+          <span class="icon-feature-provider">by Iconists</span>
+          <span class="icon-feature-link">${data.linkLabel}</span>
+        </div>
+      `
+      sectionEl.appendChild(card)
+
     } else if (data.layout === 'resources' && data.resources) {
       const resWrap = document.createElement('div')
       resWrap.className = 'section-resources'
@@ -750,6 +1280,263 @@ function renderContent(categoryId, pageId) {
       }
       resWrap.appendChild(grid)
       sectionEl.appendChild(resWrap)
+
+    } else if (data.layout === 'color-blocks' && data.colors) {
+      const row = document.createElement('div')
+      row.className = 'color-blocks-row'
+      for (const color of data.colors) {
+        const block = document.createElement('div')
+        block.className = 'color-block'
+        const swatch = document.createElement('div')
+        swatch.className = 'color-block-swatch'
+        swatch.style.backgroundColor = color.hex
+        if (getRelativeLuminance(color.hex) > 0.85) {
+          swatch.classList.add('color-block-swatch--light')
+        }
+        initCopyLabel(swatch, color.hex)
+        block.appendChild(swatch)
+        const info = document.createElement('div')
+        info.className = 'color-block-info'
+        const nameEl = document.createElement('span')
+        nameEl.className = 'color-block-name'
+        nameEl.textContent = color.name
+        info.appendChild(nameEl)
+        const hexEl = document.createElement('span')
+        hexEl.className = 'color-block-hex'
+        hexEl.textContent = color.hex
+        info.appendChild(hexEl)
+        block.appendChild(info)
+        row.appendChild(block)
+      }
+      sectionEl.appendChild(row)
+
+    } else if (data.layout === 'color-shades' && data.columns) {
+      const row = document.createElement('div')
+      row.className = 'color-shades-row'
+      for (const col of data.columns) {
+        const colEl = document.createElement('div')
+        colEl.className = 'color-shade-col'
+        const header = document.createElement('div')
+        header.className = 'color-shade-header'
+        header.textContent = col.name
+        colEl.appendChild(header)
+        const list = document.createElement('div')
+        list.className = 'color-shade-list'
+        for (const shade of col.shades) {
+          const item = document.createElement('div')
+          item.className = 'color-shade-item'
+          item.style.backgroundColor = shade.hex
+          const lum = getRelativeLuminance(shade.hex)
+          if (lum < 0.4) item.classList.add('color-shade-item--dark')
+          if (lum > 0.9) item.classList.add('color-shade-item--light')
+          const step = document.createElement('span')
+          step.className = 'color-shade-step'
+          step.textContent = shade.step
+          item.appendChild(step)
+          const hexEl = document.createElement('span')
+          hexEl.className = 'color-shade-hex'
+          hexEl.textContent = shade.hex
+          item.appendChild(hexEl)
+          initCopyLabel(item, shade.hex)
+          list.appendChild(item)
+        }
+        colEl.appendChild(list)
+        row.appendChild(colEl)
+      }
+      sectionEl.appendChild(row)
+
+    } else if (data.layout === 'color-transparency' && data.columns) {
+      const wrap = document.createElement('div')
+      wrap.className = 'color-trans-wrap'
+      const row = document.createElement('div')
+      row.className = 'color-trans-row'
+      for (const col of data.columns) {
+        const colEl = document.createElement('div')
+        colEl.className = 'color-trans-col'
+        if (col.lightBg) colEl.classList.add('color-trans-col--light')
+        const header = document.createElement('div')
+        header.className = 'color-trans-header'
+        header.textContent = col.name
+        colEl.appendChild(header)
+        const list = document.createElement('div')
+        list.className = 'color-trans-list'
+        const r = parseInt(col.base.slice(1, 3), 16)
+        const g = parseInt(col.base.slice(3, 5), 16)
+        const b = parseInt(col.base.slice(5, 7), 16)
+        for (const level of col.levels) {
+          const alpha = parseInt(level) / 100
+          const rgba = `rgba(${r}, ${g}, ${b}, ${alpha})`
+          const item = document.createElement('div')
+          item.className = 'color-trans-item'
+          const swatch = document.createElement('div')
+          swatch.className = 'color-trans-swatch'
+          swatch.style.backgroundColor = rgba
+          item.appendChild(swatch)
+          const pctEl = document.createElement('span')
+          pctEl.className = 'color-trans-pct'
+          pctEl.textContent = level + '%'
+          item.appendChild(pctEl)
+          const alphaEl = document.createElement('span')
+          alphaEl.className = 'color-trans-alpha'
+          alphaEl.textContent = alpha.toFixed(2)
+          item.appendChild(alphaEl)
+          item.addEventListener('click', () => copyColor(rgba, alphaEl))
+          list.appendChild(item)
+        }
+        colEl.appendChild(list)
+        row.appendChild(colEl)
+      }
+      wrap.appendChild(row)
+      sectionEl.appendChild(wrap)
+
+    } else if (data.layout === 'type-overview' && data.families) {
+      const grid = document.createElement('div')
+      grid.className = 'type-overview-grid'
+
+      // Cursor-following hover tag
+      let tag = document.getElementById('type-hover-tag')
+      if (!tag) {
+        tag = document.createElement('div')
+        tag.id = 'type-hover-tag'
+        document.body.appendChild(tag)
+      }
+      let tagX = 0, tagY = 0, tagTargetX = 0, tagTargetY = 0
+      let tagVisible = false, tagRaf = null, tagTimeouts = []
+
+      function updateTagPos() {
+        tagX += (tagTargetX - tagX) * 0.15
+        tagY += (tagTargetY - tagY) * 0.15
+        tag.style.transform = `translate(${tagX}px, ${tagY}px)`
+        if (tagVisible) tagRaf = requestAnimationFrame(updateTagPos)
+      }
+
+      function showTag(text, x, y) {
+        tagTargetX = x + 14; tagTargetY = y - 13
+        if (!tagVisible) { tagX = tagTargetX; tagY = tagTargetY }
+        tagVisible = true
+        tagTimeouts.forEach(clearTimeout); tagTimeouts = []
+        tag.innerHTML = ''
+        const spans = []
+        for (const ch of text) {
+          const s = document.createElement('span')
+          s.textContent = ch
+          tag.appendChild(s)
+          spans.push(s)
+        }
+        tag.style.transition = 'none'
+        tag.style.width = '2px'
+        tag.style.opacity = '1'
+        tag.style.transform = `translate(${tagX}px, ${tagY}px)`
+        tag.offsetHeight
+        tag.style.width = 'auto'
+        const fullW = tag.offsetWidth
+        tag.style.width = '2px'
+        tag.offsetHeight
+        tag.style.transition = 'width 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+        tag.style.width = fullW + 'px'
+        let cum = 100, gap = 55
+        spans.forEach((s) => {
+          tagTimeouts.push(setTimeout(() => { s.style.opacity = '1'; s.style.transform = 'translateY(0)' }, cum))
+          cum += gap; gap = Math.max(18, gap - 6)
+        })
+        if (tagRaf) cancelAnimationFrame(tagRaf)
+        tagRaf = requestAnimationFrame(updateTagPos)
+      }
+
+      function hideTag() {
+        tagVisible = false
+        tagTimeouts.forEach(clearTimeout); tagTimeouts = []
+        tag.style.transition = 'opacity 0.15s ease-out, width 0.25s ease-in'
+        tag.style.opacity = '0'
+        tag.style.width = '2px'
+      }
+
+      for (const fam of data.families) {
+        const link = document.createElement('a')
+        link.className = 'type-overview-card'
+        link.href = fam.url
+        link.target = '_blank'
+        link.rel = 'noopener noreferrer'
+        link.innerHTML = `
+          <div class="type-overview-sample" style="font-family: '${fam.font}', serif; font-weight: ${fam.weight || 400};">${fam.sample}</div>
+          <div class="type-overview-bar">
+            <span class="type-overview-label">${fam.label}</span>
+            <span class="type-overview-role">${fam.role}</span>
+          </div>
+        `
+        const tagText = 'View on ' + (fam.url.includes('adobe') ? 'Adobe Fonts ↗' : 'Google Fonts ↗')
+        link.addEventListener('mouseenter', (e) => showTag(tagText, e.clientX, e.clientY))
+        link.addEventListener('mousemove', (e) => { tagTargetX = e.clientX + 14; tagTargetY = e.clientY - 13 })
+        link.addEventListener('mouseleave', hideTag)
+        grid.appendChild(link)
+      }
+      sectionEl.appendChild(grid)
+
+    } else if (data.layout === 'type-specimen') {
+      const block = document.createElement('div')
+      block.className = 'type-specimen'
+      for (const w of data.weights) {
+        const row = document.createElement('div')
+        row.className = 'type-specimen-row'
+        row.innerHTML = `
+          <span class="type-specimen-row-name" style="font-family: '${data.font}', serif; font-weight: ${w.value};">${data.label}</span>
+          <span class="type-specimen-row-weight" style="font-family: '${data.font}', serif; font-weight: ${w.value};">${w.name}</span>
+        `
+        block.appendChild(row)
+      }
+      sectionEl.appendChild(block)
+
+    } else if (data.layout === 'type-scale' && data.groups) {
+      const wrap = document.createElement('div')
+      wrap.className = 'type-scale-wrap'
+      for (const group of data.groups) {
+        const groupEl = document.createElement('div')
+        groupEl.className = 'type-scale-group'
+        const header = document.createElement('div')
+        header.className = 'type-scale-group-header'
+        header.textContent = group.name
+        groupEl.appendChild(header)
+        for (const item of group.sizes) {
+          const row = document.createElement('div')
+          row.className = 'type-scale-row'
+          row.innerHTML = `
+            <div class="type-scale-meta">
+              <span class="type-scale-label">${item.label}</span>
+              <span class="type-scale-info">${item.size}px / ${item.lineHeight}</span>
+            </div>
+            <div class="type-scale-sample" style="font-family: '${group.font}', serif; font-size: ${item.size}px; font-weight: ${item.weight}; line-height: ${item.lineHeight};">${item.label}</div>
+          `
+          groupEl.appendChild(row)
+        }
+        wrap.appendChild(groupEl)
+      }
+      sectionEl.appendChild(wrap)
+
+    } else if (data.layout === 'type-usage' && data.blocks) {
+      const wrap = document.createElement('div')
+      wrap.className = 'type-usage-wrap'
+      for (const block of data.blocks) {
+        const el = document.createElement('div')
+        el.className = 'type-usage-block'
+
+        const tf = block.transform === 'uppercase' ? 'text-transform: uppercase;' : ''
+
+        el.innerHTML = `
+          <div class="type-usage-meta">
+            <div class="type-usage-meta-left">
+              <span class="type-usage-role">${block.role}</span>
+              <span class="type-usage-font">${block.fontLabel}</span>
+            </div>
+            <div class="type-usage-meta-specs">
+              <div class="type-usage-spec"><span class="type-usage-spec-label">Leading:</span><span class="type-usage-spec-value">${block.leading}</span></div>
+              <div class="type-usage-spec"><span class="type-usage-spec-label">Tracking:</span><span class="type-usage-spec-value">${block.tracking}</span></div>
+            </div>
+          </div>
+          <div class="type-usage-sample" style="font-family: '${block.font}', serif; font-size: ${block.sampleSize}px; font-weight: ${block.weight}; line-height: ${block.sampleLineHeight}; letter-spacing: ${block.sampleLetterSpacing}px; ${tf}">${block.sample}</div>
+        `
+        wrap.appendChild(el)
+      }
+      sectionEl.appendChild(wrap)
     }
 
     contentInner.appendChild(sectionEl)
@@ -824,34 +1611,35 @@ function setupScrollTracking(pageId) {
     setActive(sections[0].id)
   }
 
-  scrollObserver = new IntersectionObserver(
-    (entries) => {
-      // Find the topmost intersecting section
-      let topEntry = null
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
-            topEntry = entry
-          }
+  // Scroll-based tracking: switch when a section's top crosses the 50% line
+  let ticking = false
+  const onScroll = () => {
+    if (ticking) return
+    ticking = true
+    requestAnimationFrame(() => {
+      ticking = false
+      const midpoint = guideContent.clientHeight * 0.5
+      const containerTop = guideContent.getBoundingClientRect().top
+      let active = sections[0]
+
+      for (const section of sections) {
+        const relativeTop = section.getBoundingClientRect().top - containerTop
+        if (relativeTop <= midpoint) {
+          active = section
         }
       }
-      if (topEntry) {
-        setActive(topEntry.target.id)
-      }
-    },
-    {
-      root: guideContent,
-      rootMargin: '0px 0px -65% 0px',
-      threshold: 0,
-    }
-  )
 
-  sections.forEach((section) => scrollObserver.observe(section))
+      if (active) setActive(active.id)
+    })
+  }
+
+  guideContent.addEventListener('scroll', onScroll)
+  scrollObserver = { disconnect: () => guideContent.removeEventListener('scroll', onScroll) }
 }
 
 // ── Init ─────────────────────────────────────────────────
 buildNav()
-renderContent('foundations', 'logo')
+navigateFromHash()
 
 // Fade in after browser paints the hidden state
 requestAnimationFrame(() => {
