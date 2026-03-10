@@ -61,21 +61,11 @@ const NAV_DATA = [
           { id: 'type-exploration', label: 'Exploration' },
         ],
       },
-      { id: 'motion', label: 'Motion', sections: [], comingSoon: true },
       {
         id: 'iconography',
         label: 'Iconography',
         sections: [{ id: 'icon-overview', label: 'Overview' }],
       },
-      { id: 'photography', label: 'Photography', sections: [], comingSoon: true },
-      { id: 'illustration', label: 'Illustration', sections: [], comingSoon: true },
-    ],
-  },
-  {
-    id: 'language',
-    label: 'Language',
-    pages: [
-      { id: 'language-overview', label: 'Overview', sections: [], comingSoon: true },
     ],
   },
   {
