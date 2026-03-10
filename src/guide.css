@@ -1276,6 +1276,25 @@ body {
 /* ═══════════════════════════════════════════════════════
    Mobile hamburger button
    ═══════════════════════════════════════════════════════ */
+#mobile-logo {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  height: 40px;
+  background: #fff;
+  border: 0.5px solid #e8e8e8;
+  align-items: center;
+  padding: 0 12px;
+  text-decoration: none;
+}
+
+#mobile-logo img {
+  height: 16px;
+  display: block;
+}
+
 #mobile-menu-btn {
   display: none;
   position: fixed;
@@ -1318,9 +1337,18 @@ body {
    ═══════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* ── Mobile menu button visible ──────────────── */
+  /* ── Mobile top bar elements ────────────────── */
+  #mobile-logo {
+    display: flex;
+  }
+
   #mobile-menu-btn {
     display: flex;
+  }
+
+  /* Hide side-nav logo on mobile (mobile-logo pill replaces it) */
+  .sn-logo {
+    display: none;
   }
 
   /* ── Side nav: full-screen overlay ───────────── */
