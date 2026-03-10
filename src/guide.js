@@ -1127,7 +1127,12 @@ function toggleCategory(categoryId) {
 }
 
 // ── Select a page ────────────────────────────────────────
+function closeMobileNav() {
+  document.body.classList.remove('mobile-nav-open')
+}
+
 function selectPage(categoryId, pageId) {
+  closeMobileNav()
   if (activePageId === pageId && openCategoryId === categoryId) return
 
   // Deactivate previous page item
@@ -1626,6 +1631,12 @@ function setupScrollTracking(pageId) {
   guideContent.addEventListener('scroll', onScroll)
   scrollObserver = { disconnect: () => guideContent.removeEventListener('scroll', onScroll) }
 }
+
+// ── Mobile menu toggle ───────────────────────────────────
+document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+  document.body.classList.toggle('mobile-nav-open')
+})
+document.getElementById('mobile-overlay').addEventListener('click', closeMobileNav)
 
 // ── Init ─────────────────────────────────────────────────
 buildNav()

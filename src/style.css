@@ -304,3 +304,23 @@ html, body {
   color: #151518;
   font-feature-settings: 'lnum' 1, 'tnum' 1;
 }
+
+/* ── Mobile ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 24px;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+  }
+
+  .nav-logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-logo-text {
+    width: 56px;
+  }
+}
