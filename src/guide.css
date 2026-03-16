@@ -100,6 +100,42 @@ body {
   opacity: 0.3;
 }
 
+/* ── Download all button ─────────────────────────────── */
+.sn-download {
+  margin-top: auto;
+  padding: 20px;
+  border-top: 0.5px solid #e8e8e8;
+  flex-shrink: 0;
+}
+
+.sn-download a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 0;
+  background: #151518;
+  color: #fff;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  line-height: 1;
+  transition: opacity 0.15s ease;
+}
+
+.sn-download a:hover {
+  opacity: 0.7;
+}
+
+.sn-download a svg {
+  width: 14px;
+  height: 14px;
+}
+
 /* ── Category (Foundations / Language / Resources) ────── */
 .sn-category {
   padding: 20px;
@@ -326,11 +362,11 @@ body {
 }
 
 .section-desc {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.5;
-  max-width: 400px;
-  width: 400px;
+  max-width: 480px;
+  width: 480px;
 }
 
 .section-desc p {
@@ -1435,6 +1471,7 @@ body {
   .section-desc {
     max-width: 100%;
     width: 100%;
+    font-size: 15px;
   }
 
   /* ── Cards row ───────────────────────────────── */

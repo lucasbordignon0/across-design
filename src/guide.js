@@ -1050,6 +1050,17 @@ function buildNav() {
 
     sideNav.appendChild(catEl)
   }
+
+  // Download all assets button
+  const dlSection = document.createElement('div')
+  dlSection.className = 'sn-download'
+  dlSection.innerHTML = `<a href="/Across_Assets.zip" download>
+    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 1v10M8 11L4 7M8 11l4-4M2 14h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Download All Assets
+  </a>`
+  sideNav.appendChild(dlSection)
 }
 
 // ── Hash-based routing ───────────────────────────────────
