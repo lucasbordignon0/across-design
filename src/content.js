@@ -191,9 +191,9 @@ export const PAGE_CONTENT = {
   }}},
   photography:{sections:{
     'photo-overview':{desc:'Real places and people, captured mid-action and slightly blurred. Nothing is posed; the subject remains recognizable.\n\nGradients and color are the base layer of the brand. Photography adds the human side, roughly 30% of the mix. Avoid chains, glowing networks, coins and posed stock.',layout:'none'},
-    'nature-motion':{desc:'Landscapes, trees, water and sky with real camera movement. The subject stays readable through the blur.\n\nUse this calm register for partner-facing and editorial work. Favor natural light, warm earth against cool sky, and restrained saturation.',layout:'none'},
-    'life-motion':{desc:'People and cities mid-action: someone walking, a passing train or a street at dusk. One person or a few, never a crowd and never posed.\n\nUse the human side of the brand for launches, community and events.',layout:'none'},
-    'color-motion':{desc:'Aqua in motion: soft gradients and color fields built from the brand palette. No photography here.\n\nThis is the system’s base layer and most of what we publish. Stay in the aqua family and keep aqua the brightest thing in the frame.',layout:'none'},
+    'nature-motion':{desc:'Landscapes, trees, water and sky with real camera movement. The subject stays readable through the blur.\n\nUse this calm register for partner-facing and editorial work. Favor natural light, warm earth against cool sky, and restrained saturation.',layout:'single',images:['/images/brand/nature-motion.webp']},
+    'life-motion':{desc:'People and cities mid-action: someone walking, a passing train or a street at dusk. One person or a few, never a crowd and never posed.\n\nUse the human side of the brand for launches, community and events.',layout:'single',images:['/images/brand/life-motion.webp']},
+    'color-motion':{desc:'Aqua in motion: soft gradients and color fields built from the brand palette. No photography here.\n\nThis is the system’s base layer and most of what we publish. Stay in the aqua family and keep aqua the brightest thing in the frame.',layout:'single',images:['/images/brand/color-motion.webp']},
   }},
   'resources-downloads':{sections:{
     'res-downloads':{desc:'Current September 2026 masters, with approved variants and usage notes. The complete bundle is generated from the same files as the individual packs.',layout:'resources',resources:DOWNLOADS},

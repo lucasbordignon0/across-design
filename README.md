@@ -25,7 +25,7 @@ npm run preview
 - [Supreme on Fontshare](https://www.fontshare.com/fonts/supreme)
 - [IvyPresto on Adobe Fonts](https://fonts.adobe.com/fonts/ivypresto-headline)
 
-Official vector masters are in `brand-masters/`. Guideline diagrams are built with vector masters and browser layouts; the radial surface uses an inline SVG gradient. Photography guidance is text-only. Content, palettes, and mode tokens live in `src/content.js`.
+Official vector masters are in `brand-masters/`. Guideline diagrams are built with vector masters and browser layouts; the radial surface uses an inline SVG gradient. Raster previews are limited to Photo Style and Iconography. All other guideline artwork uses SVG or browser layouts. Content, palettes, and mode tokens live in `src/content.js`.
 
 Supreme is served through Fontshare's official variable-font stylesheet. It is used throughout the interface, including technical values and filenames. The supplied local font package confirmed the 100–800 weight range; font files are not redistributed in this repository or in download ZIPs.
 

@@ -921,6 +921,9 @@ function renderContent(categoryId, pageId) {
       card.target = '_blank'
       card.rel = 'noopener noreferrer'
       card.innerHTML = `
+        <div class="icon-feature-top">
+          <img src="/images/iconography/central.webp" alt="Central Icon System – weight variations" class="icon-feature-img" loading="lazy" />
+        </div>
         <div class="icon-feature-bar">
           <span class="icon-feature-name">Central Icon System</span>
           <span class="icon-feature-provider">by Iconists</span>
