@@ -39,8 +39,7 @@ export const NAV_DATA = [
       section('primary-logo','Primary Logo'), section('secondary-logo','Secondary Logo'), section('symbol','Symbol'),
       section('logo-playground','Logo Playground'), section('clear-space','Clear Space'),
       section('powered-by','Powered by Across'), section('partnerships','Co-marketing'),
-      section('alt-logos','Decorative Logos'), section('application','Application'),
-      section('common-mistakes','Common Mistakes'), section('logo-resources','Resources'),
+      section('alt-logos','Decorative Logos'), section('logo-resources','Resources'),
     ] },
     { id: 'colors', label: 'Colors', sections: [
       section('primary-colors','Primary Colors'), section('secondary-colors','Secondary Colors'),
@@ -50,7 +49,7 @@ export const NAV_DATA = [
     ] },
     { id: 'typography', label: 'Typography', sections: [
       section('type-overview','Overview'), section('type-supreme','Supreme'),
-      section('type-ivypresto','IvyPresto'), section('type-scale','Type Scale'), section('type-usage','Usage'),
+      section('type-ivypresto','IvyPresto Headline'), section('type-ivy-text','IvyPresto Text'), section('type-scale','Type Scale'), section('type-usage','Usage'),
     ] },
     { id: 'iconography', label: 'Iconography', sections: [section('icon-overview','Overview')] },
     { id: 'photography', label: 'Photo Style', sections: [
@@ -63,8 +62,7 @@ export const NAV_DATA = [
   ] },
 ]
 
-const preview = (name) => `/images/brand/${name}.webp`
-const asset = (name, color = 'white') => `/logos/${name}-${color}.svg`
+const asset = (name, color = 'dark') => `/logos/${name}-${color}.svg`
 const weights = [
   {value:100,name:'Thin'}, {value:200,name:'Extralight'}, {value:300,name:'Light'},
   {value:400,name:'Regular'}, {value:500,name:'Medium'}, {value:700,name:'Bold'}, {value:800,name:'Extrabold'},
@@ -89,7 +87,7 @@ export const PAGE_CONTENT = {
     },
     'clear-space': {
       desc: 'Clear space on every side equals x: the gap between the symbol and the wordmark. Keep text, artwork and edges outside this area.\n\nThe same unit governs primary and secondary lockups.',
-      layout: 'single', images: ['/images/brand/clear-space.webp'],
+      layout: 'clear-space',
     },
     'powered-by': {
       desc: 'Use this lockup when Across runs inside another product: POWERED BY in a light weight, followed by the symbol and ACROSS in bold, separated by x.\n\nUse the approved monochrome masters. Never add color, gradients or a tagline. Send partners the files rather than asking them to rebuild the lockup.',
@@ -97,19 +95,11 @@ export const PAGE_CONTENT = {
     },
     partnerships: {
       desc: 'For co-marketing on Across assets, Across comes first, then the multiplication sign ×, then the partner logo. Leave x of space on either side of ×.\n\nMatch optical height rather than width. If the two brands’ rules conflict, agree the lockup before publishing.',
-      layout: 'single', images: [preview('co-marketing')],
+      layout: 'partnerships',
     },
     'alt-logos': {
       desc: 'Crest and Monogram are decorative marks for merch, events and internal material. These are special expressions, not substitutes for the primary identity.\n\nOutside merch and internal work, use the primary or secondary logo.',
       layout: 'logo-showcase', logos: [asset('crest'),asset('monogram')], decorative: true,
-    },
-    application: {
-      desc: 'The logo works from a favicon to the front of a shirt. Merch makes room for alternate marks, badges and patterns, as long as the primary logo appears somewhere on the piece.',
-      layout: 'single', images: [preview('logo-application')],
-    },
-    'common-mistakes': {
-      desc: 'Use the master files exactly as provided. Do not stretch, rotate, recolor outside the palette, add outlines, split colors between symbol and wordmark, or reset the wordmark.\n\nDo not add shadows or glows, change the X colors, or fill the logo with gradients, photos or textures.',
-      layout: 'single', images: [preview('logo-mistakes')],
     },
     'logo-resources': { desc: 'Approved September 2026 artwork. SVG masters and matching transparent PNGs are organized by logo and color. Each pack includes usage guidance.', layout: 'resources', resources: DOWNLOADS },
   } },
@@ -131,15 +121,15 @@ export const PAGE_CONTENT = {
       layout: 'color-transparency', columns: [{name:'Aqua on dark',base:'#6CF9D8',levels:['5','10','15','20','30']},{name:'Bright Gray on dark',base:'#E0F3FF',levels:['5','10','15','20','30']},{name:'Ink on light',base:'#0A3737',levels:['5','10','15','20','30'],lightBg:true}],
     },
     'brand-gradient': {
-      desc: 'The radial gradient is the brand’s signature surface. It is built from the aqua scale and blends into its page: Aqua 900 on dark, Mist on light.\n\nMist is #D6E2E0. The diagram below is exported from the approved Figma guidelines.',
-      layout:'single', images:[preview('brand-radial')],
+      desc: 'The radial gradient is the brand’s signature surface. It is built from the aqua scale and blends into its page: Aqua 900 on dark, Mist on light.\n\nMist is #D6E2E0. The vector surface below recreates the approved radial geometry and color stops at any size.',
+      layout:'brand-radial',
     },
     'gradient-palettes': {
       desc: 'Five palettes for generated artwork. Across is the default; Aqua, Deep, Mint and Mono provide lighter, deeper or quieter moods.\n\nThe strips show palette stops. Download the clean radial artwork and palette reference from Resources.',
       layout:'gradients', palettes:GRADIENTS,
     },
     'color-modes': {
-      desc: 'One set of semantic roles, two values. Dark is the default. Light uses a #F3F7F7 page with white cards. Aqua stays a full-strength fill; text becomes ink and accent text becomes Aqua 400.',
+      desc: 'One set of semantic roles, two values. This guide uses light mode. Light uses a #F3F7F7 page with white cards. Aqua stays a full-strength fill; text becomes ink and accent text becomes Aqua 400.',
       layout:'modes', modes:MODES,
     },
     'functional-colors': {
@@ -164,14 +154,22 @@ export const PAGE_CONTENT = {
       layout:'type-specimen', font:'Supreme',label:'Supreme',weights,
     },
     'type-ivypresto': {
-      desc: 'IvyPresto Display is for huge text and decorative pieces. Headline is for titles and headings. Text is for smaller sizes and long paragraphs where readability takes priority.\n\nThe live specimen below uses IvyPresto Headline. Display and Text are documented with approved Figma specimens beneath it. Obtain the family through Adobe Fonts.',
+      desc: 'IvyPresto Display is for huge text and decorative pieces. Headline is for titles and headings. Text is for longer decorative paragraphs and smaller editorial sizes.\n\nThe live specimen below uses IvyPresto Headline. Use Display for oversized decorative work and Text for longer passages. Obtain the family through Adobe Fonts.',
       layout:'type-specimen',font:'ivypresto-headline',label:'IvyPresto Headline',weights:[{value:100,name:'Thin'},{value:300,name:'Light'},{value:400,name:'Regular'}],
-      examples:[{image:preview('ivy-display'),label:'IvyPresto Display'},{image:preview('ivy-text'),label:'IvyPresto Text'}],
+    },
+    'type-ivy-text': {
+      desc: 'IvyPresto Text gives longer decorative paragraphs an editorial voice. Use it for introductions, brand stories and expressive reading passages, with generous line-height and a comfortable measure.\n\nSupreme remains the default for functional body copy, instructions and product interfaces.',
+      layout:'editorial-paragraph',
+      paragraphs:[
+        'Money is always moving. Across connects the places it needs to go, bringing people, products and networks closer together. From a first transfer to a new way of paying, every journey starts with a simple intention: to reach the other side.',
+        'We believe moving value should feel natural. The technology works quietly in the background, leaving room for the moments, ideas and possibilities that come next.',
+      ],
     },
     'type-scale': {
       desc: 'Use Supreme for functional headings, body and labels, including technical content that previously used mono. Reserve IvyPresto for expressive editorial display.\n\nThis practical web scale adapts the brand families to the guide’s interface. Maintain readable sizes and check wrapping at mobile widths.',
       layout:'type-scale',groups:[
         {name:'Editorial display',font:'ivypresto-headline',sizes:[{label:'Display Large',size:72,weight:300,lineHeight:1.1},{label:'Display Medium',size:56,weight:300,lineHeight:1.1},{label:'Display Small',size:40,weight:400,lineHeight:1.15}]},
+        {name:'Decorative paragraphs',font:'ivypresto-text',sizes:[{label:'Editorial Body Large',size:24,weight:400,lineHeight:1.5},{label:'Editorial Body',size:20,weight:400,lineHeight:1.6}]},
         {name:'Interface headings',font:'Supreme',sizes:[{label:'Heading Large',size:36,weight:500,lineHeight:1.2},{label:'Heading Medium',size:24,weight:500,lineHeight:1.25},{label:'Heading Small',size:18,weight:500,lineHeight:1.35}]},
         {name:'Body & labels',font:'Supreme',sizes:[{label:'Body Large',size:18,weight:400,lineHeight:1.6},{label:'Body',size:16,weight:400,lineHeight:1.6},{label:'Label',size:14,weight:500,lineHeight:1.4},{label:'Micro label',size:12,weight:500,lineHeight:1.4}]},
       ],
@@ -180,6 +178,7 @@ export const PAGE_CONTENT = {
       desc: 'Match the typeface to the text’s job. Supreme provides clarity for product and technical content. IvyPresto adds an editorial voice to expressive work.\n\nUse clear hierarchy, comfortable line-height and restrained tracking. These web settings are starting points, not replacements for optical judgment.',
       layout:'type-usage',blocks:[
         {role:'Editorial headline',font:'ivypresto-headline',fontLabel:'IvyPresto Headline Light',weight:300,leading:'110%',tracking:'−1%',sample:'Money in motion',sampleSize:72,sampleLineHeight:1.1,sampleLetterSpacing:-0.72},
+        {role:'Long decorative paragraph',font:'ivypresto-text',fontLabel:'IvyPresto Text Regular',weight:400,leading:'160%',tracking:'0%',sample:'Across connects the places value needs to go. Every journey begins with an intention, opening new possibilities for the people, products and networks on the other side.',sampleSize:24,sampleLineHeight:1.6,sampleLetterSpacing:0},
         {role:'Functional heading',font:'Supreme',fontLabel:'Supreme Medium',weight:500,leading:'125%',tracking:'−1%',sample:'Move value between chains',sampleSize:32,sampleLineHeight:1.25,sampleLetterSpacing:-0.32},
         {role:'Body',font:'Supreme',fontLabel:'Supreme Regular',weight:400,leading:'160%',tracking:'0%',sample:'Wallets, exchanges, apps and payments companies use Across to move value between chains. A user says where their money should end up, relayers fill it, and the protocol settles it.',sampleSize:16,sampleLineHeight:1.6,sampleLetterSpacing:0},
         {role:'Label',font:'Supreme',fontLabel:'Supreme Medium',weight:500,leading:'140%',tracking:'2%',transform:'uppercase',sample:'Across Protocol',sampleSize:14,sampleLineHeight:1.4,sampleLetterSpacing:0.28},
@@ -192,12 +191,12 @@ export const PAGE_CONTENT = {
   }}},
   photography:{sections:{
     'photo-overview':{desc:'Real places and people, captured mid-action and slightly blurred. Nothing is posed; the subject remains recognizable.\n\nGradients and color are the base layer of the brand. Photography adds the human side, roughly 30% of the mix. Avoid chains, glowing networks, coins and posed stock.',layout:'none'},
-    'nature-motion':{desc:'Landscapes, trees, water and sky with real camera movement. The subject stays readable through the blur.\n\nUse this calm register for partner-facing and editorial work. Favor natural light, warm earth against cool sky, and restrained saturation.',layout:'single',images:[preview('nature-motion')]},
-    'life-motion':{desc:'People and cities mid-action: someone walking, a passing train or a street at dusk. One person or a few, never a crowd and never posed.\n\nUse the human side of the brand for launches, community and events.',layout:'single',images:[preview('life-motion')]},
-    'color-motion':{desc:'Aqua in motion: soft gradients and color fields built from the brand palette. No photography here.\n\nThis is the system’s base layer and most of what we publish. Stay in the aqua family and keep aqua the brightest thing in the frame.',layout:'single',images:[preview('color-motion')]},
+    'nature-motion':{desc:'Landscapes, trees, water and sky with real camera movement. The subject stays readable through the blur.\n\nUse this calm register for partner-facing and editorial work. Favor natural light, warm earth against cool sky, and restrained saturation.',layout:'none'},
+    'life-motion':{desc:'People and cities mid-action: someone walking, a passing train or a street at dusk. One person or a few, never a crowd and never posed.\n\nUse the human side of the brand for launches, community and events.',layout:'none'},
+    'color-motion':{desc:'Aqua in motion: soft gradients and color fields built from the brand palette. No photography here.\n\nThis is the system’s base layer and most of what we publish. Stay in the aqua family and keep aqua the brightest thing in the frame.',layout:'none'},
   }},
   'resources-downloads':{sections:{
     'res-downloads':{desc:'Current September 2026 masters, with approved variants and usage notes. The complete bundle is generated from the same files as the individual packs.',layout:'resources',resources:DOWNLOADS},
-    'res-fonts':{desc:'Obtain fonts from their official sources. Supreme is free from Fontshare. IvyPresto is available through Adobe Fonts. Font software is not bundled with these brand downloads.',layout:'font-links',links:[{name:'Supreme',url:FONT_URL,label:'Get Supreme on Fontshare ↗'},{name:'IvyPresto',url:'https://fonts.adobe.com/fonts/ivypresto-headline',label:'View IvyPresto on Adobe Fonts ↗'}]},
+    'res-fonts':{desc:'Obtain fonts from their official sources. Supreme is free from Fontshare. IvyPresto is available through Adobe Fonts. Font software is not bundled with these brand downloads.',layout:'font-links',links:[{name:'Supreme',url:FONT_URL,label:'Get Supreme on Fontshare ↗'},{name:'IvyPresto Headline',url:'https://fonts.adobe.com/fonts/ivypresto-headline',label:'View Headline on Adobe Fonts ↗'},{name:'IvyPresto Text',url:'https://fonts.adobe.com/fonts/ivypresto-text',label:'View Text on Adobe Fonts ↗'}]},
   }},
 }

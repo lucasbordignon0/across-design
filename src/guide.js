@@ -1,4 +1,5 @@
 import './guide.css'
+import brandRadial from '../brand-masters/brand-radial.svg?raw'
 import { BRAND_REVISION, NAV_DATA, PAGE_CONTENT } from './content.js'
 
 // ── Chevron SVG ──────────────────────────────────────────
@@ -512,7 +513,7 @@ function buildNav() {
   // Logo
   const logoSection = document.createElement('div')
   logoSection.className = 'sn-section sn-logo'
-  logoSection.innerHTML = `<a href="/#logo" aria-label="Across design system"><img src="/logos/primary-logo-white.svg" alt="Across Design" /></a>`
+  logoSection.innerHTML = `<a href="/#logo" aria-label="Across design system"><img src="/logos/primary-logo-dark.svg" alt="Across Design" /></a>`
   sideNav.appendChild(logoSection)
 
   // Info
@@ -655,7 +656,7 @@ function updateHash(pageId) {
 
 // Resolve page and section hashes, including links copied from the previous guide.
 function navigateFromHash() {
-  const aliases = { 'type-barlow': 'type-supreme', 'type-geist-mono': 'type-supreme', 'type-exploration': 'type-overview', experimentations: 'application' }
+  const aliases = { 'type-barlow': 'type-supreme', 'type-geist-mono': 'type-supreme', 'type-exploration': 'type-overview', experimentations: 'logo', application: 'logo', 'common-mistakes': 'logo' }
   const hash = location.hash.slice(1)
   const id = aliases[hash] || hash || 'logo'
   for (const cat of NAV_DATA) {
@@ -826,6 +827,30 @@ function renderContent(categoryId, pageId) {
       })
       sectionEl.appendChild(row)
 
+    } else if (data.layout === 'brand-radial') {
+      const figure = document.createElement('figure')
+      figure.className = 'brand-radial'
+      figure.innerHTML = brandRadial.replace('<svg ', '<svg role="img" aria-label="Across radial gradient, from mist and aqua to deep green" ') + '<figcaption>Across radial · Mist → Aqua → Aqua 900</figcaption>'
+      sectionEl.appendChild(figure)
+
+    } else if (data.layout === 'clear-space') {
+      const figure = document.createElement('figure')
+      figure.className = 'clear-space-diagram'
+      figure.innerHTML = '<div class="clear-space-boundary"><span class="space-top">x</span><span class="space-left">x</span><img src="/logos/primary-logo-dark.svg" alt="Primary logo within a clear-space boundary" /><span class="space-right">x</span><span class="space-bottom">x</span></div><figcaption>Keep x clear on every side.</figcaption>'
+      sectionEl.appendChild(figure)
+
+    } else if (data.layout === 'partnerships') {
+      const figure = document.createElement('figure')
+      figure.className = 'partnership-diagram'
+      figure.innerHTML = '<div><img src="/logos/primary-logo-dark.svg" alt="Across" /><span aria-label="and">×</span><strong>Partner</strong></div><figcaption>Across first · Equal optical height · x on either side of ×</figcaption>'
+      sectionEl.appendChild(figure)
+
+    } else if (data.layout === 'editorial-paragraph') {
+      const article = document.createElement('div')
+      article.className = 'editorial-paragraph'
+      article.innerHTML = '<span class="editorial-caption">IvyPresto Text · Regular · 24 / 38</span>' + data.paragraphs.map(text => `<p>${text}</p>`).join('')
+      sectionEl.appendChild(article)
+
     } else if (data.layout === 'gradients') {
       const grid = document.createElement('div')
       grid.className = 'gradient-grid'
@@ -896,9 +921,6 @@ function renderContent(categoryId, pageId) {
       card.target = '_blank'
       card.rel = 'noopener noreferrer'
       card.innerHTML = `
-        <div class="icon-feature-top">
-          <img src="/images/iconography/central.webp" alt="Central Icon System – weight variations" class="icon-feature-img" />
-        </div>
         <div class="icon-feature-bar">
           <span class="icon-feature-name">Central Icon System</span>
           <span class="icon-feature-provider">by Iconists</span>
@@ -1141,12 +1163,6 @@ function renderContent(categoryId, pageId) {
         block.appendChild(row)
       }
       sectionEl.appendChild(block)
-      if (data.examples) {
-        const examples = document.createElement('div')
-        examples.className = 'ivy-examples'
-        examples.innerHTML = data.examples.map(e => `<figure><img src="${e.image}" alt="${e.label} specimen" loading="lazy" /><figcaption>${e.label}</figcaption></figure>`).join('')
-        sectionEl.appendChild(examples)
-      }
 
     } else if (data.layout === 'type-scale' && data.groups) {
       const wrap = document.createElement('div')
