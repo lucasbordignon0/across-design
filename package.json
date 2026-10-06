@@ -1,20 +1,17 @@
 {
-  "name": "across-website",
+  "name": "across-design",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "assets": "node scripts/build-assets.mjs"
   },
   "devDependencies": {
+    "fflate": "^0.8.3",
+    "sharp": "^0.35.5",
     "vite": "^7.3.1"
-  },
-  "dependencies": {
-    "@fontsource/barlow": "^5.2.8",
-    "@fontsource/geist-mono": "^5.2.7",
-    "@fontsource/geist-sans": "^5.2.5",
-    "three": "^0.183.2"
   }
 }
