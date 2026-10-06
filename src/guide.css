@@ -11,7 +11,7 @@
   --muted: #38383B;
   --hairline: #0A37371A;
   --accent: #6CF9D8;
-  --accent-text: #66E5C7;
+  --accent-text: #60D5B9;
   --on-accent: #202024;
 }
 
@@ -297,7 +297,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #6CF9D8;
+  background: var(--accent-text);
   pointer-events: none;
   opacity: 0;
   transition: top 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
@@ -430,7 +430,7 @@ body {
   left: 12px;
   font-size: 12px;
   font-weight: 500;
-  color: #6CF9D8;
+  color: var(--accent-text);
   text-transform: lowercase;
   letter-spacing: 0.5px;
 }
@@ -816,7 +816,7 @@ body {
   font-family: 'Supreme', sans-serif;
   font-weight: 500;
   font-size: 12px;
-  color: #6CF9D8;
+  color: var(--accent-text);
   display: inline-block;
   opacity: 0;
   transform: translateY(4px);
@@ -1254,7 +1254,7 @@ body {
 }
 
 .color-trans-alpha.copied {
-  color: #6CF9D8 !important;
+  color: var(--accent-text) !important;
 }
 
 /* ── Iconography: Feature card ─────────────────────── */

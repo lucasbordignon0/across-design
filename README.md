@@ -31,6 +31,6 @@ Supreme is served through Fontshare's official variable-font stylesheet. It is u
 
 The Adobe kit supplies IvyPresto Headline and IvyPresto Text for live specimens. Text is used for longer decorative paragraph examples; Display is documented for oversized editorial work. The guide's interface remains Supreme.
 
-Light is the default, matching the dapp light tokens at revision `2a6561762426b9df0601558050bfc05d7cc6d359`: pale #F3F7F7 page, white cards, #151518 text, tinted hairlines, and aqua accents. The Colors page documents both modes, including the specified Aqua 400 text in the light-mode example. That pairing is intentionally retained from the approved guidelines.
+Light is the default, matching the dapp light tokens at revision `2a6561762426b9df0601558050bfc05d7cc6d359`: pale #F3F7F7 page, white cards, #151518 text, tinted hairlines, and aqua accents. The Colors page documents both modes, including the specified Aqua 400 text in the light-mode example. That pairing is intentionally retained from the approved guidelines. Small text highlights in the guide interface use Aqua 500 (#60D5B9).
 
 The live playground uses intact approved variants, preserving the transparent symbol cutouts. Its lower size limits are practical preview limits, not official minimum-size rules.
