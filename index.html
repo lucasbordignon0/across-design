@@ -3,76 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Across Design</title>
+    <meta name="theme-color" content="#151518" />
+    <meta name="description" content="Across’s design system: brand guidelines, logos, colors, typography and downloadable assets." />
+    <title>Across Design — Brand Guidelines</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <style>
-      /* Prevent FOUC — critical styles before JS/CSS modules load */
-      body { background: #6CF9D8; margin: 0; }
-      #nav, #hero { visibility: hidden; }
-      #loader { position: fixed; inset: 0; z-index: 100; background: #6CF9D8; display: flex; align-items: center; justify-content: center; }
-      .loader-inner { position: relative; width: 104px; height: 104px; display: flex; align-items: center; justify-content: center; }
-      .loader-stars { width: 104px; height: 104px; }
-      .loader-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 500; color: #151518; }
-    </style>
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=supreme@1&display=swap" />
+    <link rel="stylesheet" href="https://use.typekit.net/pdu4bje.css" />
+    <style>body { margin:0; background:#151518; color:#E0F3FF; }</style>
   </head>
   <body>
-    <!-- Loading screen -->
-    <div id="loader">
-      <div class="loader-inner">
-        <img src="/acrossStars.svg" alt="" class="loader-stars" />
-        <span class="loader-pct">0</span>
-      </div>
+    <a class="skip-link" href="#guide-content">Skip to content</a>
+    <div id="page-transition" aria-hidden="true"></div>
+    <div id="guide">
+      <a id="mobile-logo" href="/#logo" aria-label="Across design system">
+        <img src="/logos/primary-logo-white.svg" alt="Across" />
+      </a>
+      <button id="mobile-menu-btn" aria-label="Toggle navigation" aria-expanded="false" aria-controls="side-nav"><span></span><span></span></button>
+      <div id="mobile-overlay" aria-hidden="true"></div>
+      <nav id="side-nav" aria-label="Design system"></nav>
+      <main id="guide-content" tabindex="-1"><div id="content-inner"></div></main>
     </div>
-
-    <canvas id="spiral"></canvas>
-
-    <!-- Navigation -->
-    <nav id="nav">
-      <div class="nav-logo">
-        <img src="/acrossLogo.svg" alt="Across" class="nav-logo-icon" />
-        <img src="/acrossDesign.svg" alt="Design" class="nav-logo-text" />
-      </div>
-      <div class="nav-links">
-        <a href="/guide.html#logo">FOUNDATIONS</a>
-        <a href="/guide.html#resources-downloads">RESOURCES</a>
-      </div>
-    </nav>
-
-    <!-- Hero (visible at start of scroll) -->
-    <div id="hero">
-      <div class="hero-emblem">
-        <img src="/acrossXthicker.svg" alt="" class="hero-x" />
-        <img src="/acrossXthicker.svg" alt="" class="hero-x" />
-        <img src="/acrossXthicker.svg" alt="" class="hero-x" />
-        <img src="/acrossGriffin.svg" alt="Across Griffin" class="hero-griffin" />
-        <img src="/acrossXthicker.svg" alt="" class="hero-x" />
-        <img src="/acrossXthicker.svg" alt="" class="hero-x" />
-        <img src="/acrossXthicker.svg" alt="" class="hero-x" />
-      </div>
-      <p class="hero-tagline">
-        THE FASTEST WAY TO MOVE<br />
-        YOUR MONEY ACROSS<br />
-        EVERY NETWORK<br />
-        ONCHAIN
-      </p>
-    </div>
-
-    <!-- Footer (visible at end of scroll) -->
-    <div id="footer">
-      <img src="/acrossStars.svg" alt="Across Stars" class="footer-stars" />
-      <p class="footer-text">
-        OFFICIAL BRAND GUIDELINES<br />
-        BY ACROSS DESIGN TEAM<br />
-        2026
-      </p>
-    </div>
-
-    <!-- Poster hover label -->
-    <div id="poster-label"></div>
-
-    <!-- Scroll capture overlay -->
-    <div id="scroll-track"></div>
-
-    <script type="module" src="/src/main.js"></script>
+    <noscript><p style="padding:40px">Enable JavaScript to browse the design system. <a href="/Across_Assets.zip">Download the brand assets</a>.</p></noscript>
+    <script type="module" src="/src/guide.js"></script>
   </body>
 </html>

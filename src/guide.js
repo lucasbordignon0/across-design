@@ -1,118 +1,28 @@
 import './guide.css'
-import '@fontsource/geist-mono/200.css'
-import '@fontsource/geist-mono/300.css'
-import '@fontsource/geist-mono/400.css'
-import '@fontsource/geist-mono/500.css'
-import '@fontsource/geist-mono/600.css'
-import '@fontsource/geist-mono/700.css'
-import '@fontsource/barlow/300.css'
-import '@fontsource/barlow/400.css'
-import '@fontsource/barlow/500.css'
-import '@fontsource/barlow/600.css'
-import '@fontsource/barlow/700.css'
-
-// ── Build date ──────────────────────────────────────────
-function formatBuildDate() {
-  const d = new Date(__BUILD_DATE__)
-  const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec']
-  return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`
-}
-
-// ── Navigation data ──────────────────────────────────────
-const NAV_DATA = [
-  {
-    id: 'foundations',
-    label: 'Foundations',
-    pages: [
-      {
-        id: 'logo',
-        label: 'Logo',
-        sections: [
-          { id: 'primary-logo', label: 'Primary Logo' },
-          { id: 'symbol', label: 'Symbol' },
-          { id: 'logo-playground', label: 'Logo Playground' },
-          { id: 'clear-space', label: 'Clear Space' },
-          { id: 'partnerships', label: 'Partnerships' },
-          { id: 'alt-logos', label: 'Alt Logos' },
-          { id: 'experimentations', label: 'Experimentations' },
-          { id: 'logo-resources', label: 'Resources' },
-        ],
-      },
-      {
-        id: 'colors',
-        label: 'Colors',
-        sections: [
-          { id: 'primary-colors', label: 'Primary Colors' },
-          { id: 'color-shades', label: 'Shades' },
-          { id: 'color-transparency', label: 'Transparency' },
-          { id: 'functional-colors', label: 'Functional Colors' },
-        ],
-      },
-      {
-        id: 'typography',
-        label: 'Typography',
-        sections: [
-          { id: 'type-overview', label: 'Overview' },
-          { id: 'type-ivypresto', label: 'IvyPresto Headline' },
-          { id: 'type-barlow', label: 'Barlow' },
-          { id: 'type-geist-mono', label: 'Geist Mono' },
-          { id: 'type-scale', label: 'Type Scale' },
-          { id: 'type-usage', label: 'Usage' },
-          { id: 'type-exploration', label: 'Exploration' },
-        ],
-      },
-      {
-        id: 'iconography',
-        label: 'Iconography',
-        sections: [{ id: 'icon-overview', label: 'Overview' }],
-      },
-    ],
-  },
-  {
-    id: 'resources',
-    label: 'Resources',
-    pages: [
-      {
-        id: 'resources-downloads',
-        label: 'Downloads',
-        sections: [{ id: 'res-downloads', label: 'Downloads' }],
-      },
-    ],
-  },
-]
+import { BRAND_REVISION, NAV_DATA, PAGE_CONTENT } from './content.js'
 
 // ── Chevron SVG ──────────────────────────────────────────
 const CHEVRON_SVG = `<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M5.25 3.5L8.75 7L5.25 10.5" stroke="#151518" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M5.25 3.5L8.75 7L5.25 10.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`
 
 // ── Download icon SVG ────────────────────────────────────
 const DOWNLOAD_SVG = `<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M8 2v8.5M4.5 7L8 10.5 11.5 7M3 13.5h10" stroke="#151518" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M8 2v8.5M4.5 7L8 10.5 11.5 7M3 13.5h10" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`
 
 // ── Logo Playground config ───────────────────────────────
 const PLAYGROUND_PRESETS = [
   { hex: '#6CF9D8', label: 'Aqua' },
-  { hex: '#2D2E33', label: 'Dark Gray' },
+  { hex: '#151518', label: 'Near Black' },
   { hex: '#E0F3FF', label: 'Bright Gray' },
 ]
 
 const PLAYGROUND_CONFIG = {
-  wordmark: {
-    src: '/Across_Logo_logo_full_Dark.svg',
-    ratio: 338 / 64,
-    minW: 32,
-    maxW: 800,
-    defaultW: 280,
-  },
-  symbol: {
-    src: '/Across_Logo_logomark_circle_transparent_Dark.svg',
-    ratio: 1,
-    minW: 32,
-    maxW: 500,
-    defaultW: 120,
-  },
+  wordmark: { name: 'primary-logo', ratio: 764.858276 / 199.998352, minW: 100, maxW: 800, defaultW: 320 },
+  secondary: { name: 'secondary-logo', ratio: 764.86 / 200, minW: 180, maxW: 800, defaultW: 320 },
+  symbol: { name: 'primary-symbol', ratio: 1, minW: 32, maxW: 400, defaultW: 120 },
+  'secondary-symbol': { name: 'secondary-symbol', ratio: 1, minW: 80, maxW: 400, defaultW: 120 },
 }
 
 // ── Color helpers ────────────────────────────────────────
@@ -169,363 +79,6 @@ function hexToHsv(hex) {
   return { h, s, v: max }
 }
 
-// ── Page content data ────────────────────────────────────
-const PAGE_CONTENT = {
-  logo: {
-    sections: {
-      'primary-logo': {
-        desc: 'The Across wordmark is the primary representation of our brand. It should be used across most communications, marketing materials, and digital experiences.\n\nAlways use approved logo files. Do not attempt to recreate or modify the wordmark in any way.',
-        layout: 'single',
-        images: ['/images/logo/logoAssets01.png'],
-      },
-      'symbol': {
-        desc: 'The Across symbol serves as a compact brand identifier. Use it when space is limited, as a favicon, or as a secondary mark alongside the full wordmark.\n\nThe symbol retains the core visual identity and should follow the same usage guidelines as the primary logo.',
-        layout: 'single',
-        images: ['/images/logo/logoAssets02.png'],
-      },
-      'logo-playground': {
-        desc: 'Explore how the Across logo adapts to different environments. The logo automatically selects its color variant based on background contrast — aqua for deep darks, white for mid-tones, and dark for bright surfaces.\n\nAdjust the background, size, and variation below to test approved configurations.',
-        layout: 'playground',
-      },
-      'clear-space': {
-        desc: 'Maintaining adequate clear space around the logo ensures visual impact and legibility. The minimum clear space is derived from the proportional relationships within the wordmark itself.\n\nNever allow other visual elements, text, or edges to encroach on the defined clear space area.',
-        layout: 'single',
-        images: ['/images/logo/logoAssets04.png'],
-      },
-      'partnerships': {
-        desc: 'When the Across brand appears alongside partner logos, these guidelines ensure balanced and respectful co-branding. Use the approved divider formats shown below.\n\nPartner logos should maintain equal visual weight. Refer to the partnership kit for specific lockup templates.',
-        layout: 'stacked',
-        images: ['/images/logo/logoAssets05.png', '/images/logo/logoAssets06.png'],
-      },
-      'alt-logos': {
-        desc: 'Alternative logo versions are provided for specific contexts and backgrounds. Each variant is optimized for its intended use case and environment.\n\nSelect the version that provides the best contrast and legibility for your specific application.',
-        layout: 'cards',
-        cards: [
-          { image: '/images/logo/logoAssets08.png', label: 'logo-dark.svg' },
-          { image: '/images/logo/logoAssets08-1.png', label: 'logo-light.svg' },
-          { image: '/images/logo/logoAssets09.png', label: 'logo-mono.svg' },
-        ],
-      },
-      'experimentations': {
-        desc: 'Exploratory expressions of the brand identity. These experimental treatments push the visual language while retaining core brand recognition.\n\nExperimentations are intended for limited editorial and creative use — not for general marketing communications.',
-        layout: 'cards',
-        cards: [
-          { image: '/images/logo/logoAssets10.png' },
-          { image: '/images/logo/logoAssets11.png' },
-          { image: '/images/logo/logoAssets12.png' },
-        ],
-      },
-      'logo-resources': {
-        desc: 'Download approved logo files and brand assets. All assets are provided in multiple formats to support various use cases and production requirements.',
-        layout: 'resources',
-        resources: [
-          { name: 'All Assets', format: 'ZIP', file: '/Across_Assets.zip' },
-          { name: 'Logo Assets', format: 'ZIP', file: '/Across_Logo_Assets.zip' },
-          { name: 'Alt Logos', format: 'ZIP', file: '/Across_Alt_Logos.zip' },
-          { name: 'Gradients', format: 'ZIP', file: '/Across_Gradients.zip' },
-          { name: 'Main Colors', format: 'ZIP', file: '/Across_Main_Colors.zip' },
-        ],
-      },
-    },
-  },
-  colors: {
-    sections: {
-      'primary-colors': {
-        desc: 'The Across color palette is built around three primary colors — Aqua, Dark Gray, and Bright Gray. These form the foundation of all brand communications and should be used consistently across every touchpoint.\n\nAqua serves as the signature brand color, Dark Gray provides depth and contrast, and Bright Gray offers a clean, modern complement.',
-        layout: 'color-blocks',
-        colors: [
-          { name: 'Aqua', hex: '#6CF9D8' },
-          { name: 'Dark Gray', hex: '#2D2E33' },
-          { name: 'Bright Gray', hex: '#E0F3FF' },
-        ],
-      },
-      'color-shades': {
-        desc: 'Each primary color extends into a full shade scale for flexible application across interfaces, illustrations, and layouts. Use lighter values for backgrounds and subtle accents, deeper values for emphasis and text.\n\nMaintain visual hierarchy by pairing shades intentionally — avoid combining shades that are too similar in value.',
-        layout: 'color-shades',
-        columns: [
-          {
-            name: 'Aqua',
-            shades: [
-              { step: '100', hex: '#BDFCED' },
-              { step: '200', hex: '#98FBE4' },
-              { step: '300', hex: '#6CF9D8' },
-              { step: '400', hex: '#66E5C7' },
-              { step: '500', hex: '#59BCA6' },
-              { step: '600', hex: '#4D9385' },
-              { step: '700', hex: '#406B65' },
-              { step: '800', hex: '#3A5754' },
-              { step: '900', hex: '#334244' },
-            ],
-          },
-          {
-            name: 'Neutrals',
-            shades: [
-              { step: '000', hex: '#FFFFFF' },
-              { step: '025', hex: '#E0F3FF' },
-              { step: '050', hex: '#CEDFEB' },
-              { step: '100', hex: '#AAB8C2' },
-              { step: '200', hex: '#869099' },
-              { step: '300', hex: '#636970' },
-              { step: '400', hex: '#51555C' },
-              { step: '500', hex: '#3F4247' },
-              { step: '600', hex: '#34353B' },
-              { step: '700', hex: '#2D2E33' },
-              { step: '800', hex: '#202024' },
-              { step: '850', hex: '#1B1B1E' },
-              { step: '900', hex: '#151518' },
-            ],
-          },
-        ],
-      },
-      'color-transparency': {
-        desc: 'Transparency variants allow primary colors to be layered over backgrounds while preserving underlying content. Use these values for overlays, glass effects, and subtle color washes.\n\nAll values are derived from the primary color palette and should be used at the specified opacity levels only.',
-        layout: 'color-transparency',
-        columns: [
-          {
-            name: 'Aqua',
-            base: '#6CF9D8',
-            levels: ['5', '10', '20', '30', '40', '50', '60', '70', '80', '90'],
-          },
-          {
-            name: 'Bright Gray',
-            base: '#E0F3FF',
-            levels: ['5', '10', '20', '30', '40', '50', '60', '70', '80', '90'],
-          },
-          {
-            name: 'Dark Gray',
-            base: '#2D2E33',
-            levels: ['5', '10', '20', '30', '40', '50', '60', '70', '80', '90'],
-            lightBg: true,
-          },
-        ],
-      },
-      'functional-colors': {
-        desc: 'Functional colors serve specific UI communication purposes — Blue for information and links, Yellow for warnings and attention, Red for errors and destructive actions.\n\nThese colors should be reserved for their designated functions to maintain consistent meaning across the product experience.',
-        layout: 'color-blocks',
-        colors: [
-          { name: 'Blue', hex: '#44D2FF' },
-          { name: 'Yellow', hex: '#F9D26C' },
-          { name: 'Red', hex: '#F96C6C' },
-        ],
-      },
-    },
-  },
-  typography: {
-    sections: {
-      'type-overview': {
-        desc: 'Typography plays a central role in the Across identity system. Our type palette balances expressive editorial character with functional clarity across web, product, and marketing.\n\nThree typefaces form the foundation: IvyPresto Headline for headlines, Barlow for body and UI copy, and Geist Mono for code and data.',
-        layout: 'type-overview',
-        families: [
-          { font: 'ivypresto-headline', label: 'IvyPresto Headline', role: 'Headlines & Editorial', sample: 'The Fastest Way to Move Money Onchain', weight: 600, url: 'https://fonts.adobe.com/fonts/ivypresto-headline' },
-          { font: 'Barlow', label: 'Barlow', role: 'Body & UI', sample: 'The Fastest Way to Move Money Onchain', weight: 600, url: 'https://fonts.google.com/specimen/Barlow' },
-          { font: 'Geist Mono', label: 'Geist Mono', role: 'Monospace & Code', sample: 'The Fastest Way to Move Money Onchain', weight: 400, url: 'https://fonts.google.com/specimen/Geist+Mono' },
-        ],
-      },
-      'type-ivypresto': {
-        desc: 'IvyPresto Headline is a high-contrast serif typeface used for headline-level typography across the Across brand. It brings an editorial, premium feel to marketing pages and hero moments.\n\nLoaded via Adobe Fonts (Typekit). Use it sparingly — exclusively for large display text and headlines, never for body copy or UI elements.',
-        layout: 'type-specimen',
-        font: 'ivypresto-headline',
-        label: 'IvyPresto Headline',
-        weights: [
-          { value: 100, name: 'Thin' },
-          { value: 300, name: 'Light' },
-          { value: 400, name: 'Regular' },
-          { value: 600, name: 'SemiBold' },
-          { value: 700, name: 'Bold' },
-        ],
-      },
-      'type-barlow': {
-        desc: 'Barlow is the primary typeface for body text, subtitles, and UI elements. It is a slightly rounded, low-contrast grotesk that offers excellent readability at small sizes while maintaining a modern, approachable feel.\n\nAvailable via Google Fonts. Use across body copy, navigation, buttons, form elements, and any functional text throughout the product and marketing.',
-        layout: 'type-specimen',
-        font: 'Barlow',
-        label: 'Barlow',
-        weights: [
-          { value: 300, name: 'Light' },
-          { value: 400, name: 'Regular' },
-          { value: 500, name: 'Medium' },
-          { value: 600, name: 'SemiBold' },
-          { value: 700, name: 'Bold' },
-        ],
-      },
-      'type-geist-mono': {
-        desc: 'Geist Mono is the monospaced counterpart used for code snippets, transaction hashes, wallet addresses, technical data, and the brand guidelines system itself.\n\nIts consistent character widths make it ideal for tabular data, developer-facing content, and any context where alignment and precision matter.',
-        layout: 'type-specimen',
-        font: 'Geist Mono',
-        label: 'Geist Mono',
-        weights: [
-          { value: 200, name: 'ExtraLight' },
-          { value: 300, name: 'Light' },
-          { value: 400, name: 'Regular' },
-          { value: 500, name: 'Medium' },
-          { value: 600, name: 'SemiBold' },
-          { value: 700, name: 'Bold' },
-        ],
-      },
-      'type-scale': {
-        desc: 'The Across type scale defines consistent sizing across the product and marketing. Display sizes use IvyPresto Headline for high-impact moments. Heading, Body, and Label sizes use Barlow for functional hierarchy.\n\nMono sizes use Geist Mono for code and data contexts. Always maintain proper hierarchy — never skip more than two scale steps between adjacent elements.',
-        layout: 'type-scale',
-        groups: [
-          {
-            name: 'Display',
-            font: 'ivypresto-headline',
-            sizes: [
-              { label: 'Display-XX Large', size: 72, weight: 400, lineHeight: 1.1 },
-              { label: 'Display-X Large', size: 56, weight: 400, lineHeight: 1.15 },
-              { label: 'Display-Large', size: 44, weight: 400, lineHeight: 1.2 },
-              { label: 'Display-Medium', size: 36, weight: 400, lineHeight: 1.25 },
-              { label: 'Display-Small', size: 28, weight: 400, lineHeight: 1.3 },
-            ],
-          },
-          {
-            name: 'Heading',
-            font: 'Barlow',
-            sizes: [
-              { label: 'Heading-XX Large', size: 36, weight: 600, lineHeight: 1.2 },
-              { label: 'Heading-X Large', size: 28, weight: 600, lineHeight: 1.25 },
-              { label: 'Heading-Large', size: 22, weight: 600, lineHeight: 1.3 },
-              { label: 'Heading-Medium', size: 18, weight: 600, lineHeight: 1.35 },
-              { label: 'Heading-Small', size: 16, weight: 600, lineHeight: 1.4 },
-              { label: 'Heading-X Small', size: 14, weight: 600, lineHeight: 1.4 },
-            ],
-          },
-          {
-            name: 'Label',
-            font: 'Barlow',
-            sizes: [
-              { label: 'Label-Large', size: 16, weight: 500, lineHeight: 1.4 },
-              { label: 'Label-Medium', size: 14, weight: 500, lineHeight: 1.4 },
-              { label: 'Label-Small', size: 12, weight: 500, lineHeight: 1.4 },
-              { label: 'Label-X Small', size: 11, weight: 500, lineHeight: 1.4 },
-            ],
-          },
-          {
-            name: 'Body',
-            font: 'Barlow',
-            sizes: [
-              { label: 'Body-Large', size: 18, weight: 400, lineHeight: 1.6 },
-              { label: 'Body-Medium', size: 16, weight: 400, lineHeight: 1.6 },
-              { label: 'Body-Small', size: 14, weight: 400, lineHeight: 1.6 },
-              { label: 'Body-X Small', size: 12, weight: 400, lineHeight: 1.5 },
-            ],
-          },
-          {
-            name: 'Mono',
-            font: 'Geist Mono',
-            sizes: [
-              { label: 'Mono-Large', size: 16, weight: 400, lineHeight: 1.5 },
-              { label: 'Mono-Medium', size: 14, weight: 400, lineHeight: 1.5 },
-              { label: 'Mono-Small', size: 12, weight: 400, lineHeight: 1.5 },
-              { label: 'Mono-X Small', size: 11, weight: 400, lineHeight: 1.5 },
-            ],
-          },
-        ],
-      },
-      'type-usage': {
-        desc: 'Good typesetting requires a discerning eye. Below are some universal principles to follow when setting type that helps ensure consistency and high legibility.\n\n* Leading can be adjusted up to 100% on headlines to avoid ascenders and descenders overlapping.',
-        layout: 'type-usage',
-        blocks: [
-          {
-            role: 'Headline',
-            font: 'ivypresto-headline',
-            fontLabel: 'IvyPresto Headline',
-            weight: 400,
-            leading: '110%*',
-            tracking: '-1%',
-            sample: 'Do more with your money',
-            sampleSize: 80,
-            sampleLineHeight: 1.1,
-            sampleLetterSpacing: -0.8,
-          },
-          {
-            role: 'Subtitle',
-            font: 'Barlow',
-            fontLabel: 'Barlow Medium',
-            weight: 500,
-            leading: '110%',
-            tracking: '-4%',
-            sample: 'The fastest bridge in crypto with the lowest fees',
-            sampleSize: 32,
-            sampleLineHeight: 1.1,
-            sampleLetterSpacing: -1.28,
-          },
-          {
-            role: 'Body',
-            font: 'Barlow',
-            fontLabel: 'Barlow Medium',
-            weight: 500,
-            leading: '150%',
-            tracking: '-1%',
-            sample: 'Body text is regular width and regular weight. Typography is a crucial aspect of any design project, as it can make or break the readability and overall aesthetic of the final product. The choice of font, size, spacing, and color all play a significant role in how the text is perceived by the viewer.',
-            sampleSize: 16,
-            sampleLineHeight: 1.5,
-            sampleLetterSpacing: -0.16,
-          },
-          {
-            role: 'Eyebrow',
-            font: 'Barlow',
-            fontLabel: 'Barlow Medium',
-            weight: 500,
-            leading: '130%',
-            tracking: '0%',
-            transform: 'uppercase',
-            sample: 'Category label or section identifier',
-            sampleSize: 14,
-            sampleLineHeight: 1.3,
-            sampleLetterSpacing: 0,
-          },
-          {
-            role: 'Eyebrow (Mono)',
-            font: 'Geist Mono',
-            fontLabel: 'Geist Mono',
-            weight: 500,
-            leading: '130%',
-            tracking: '5%',
-            transform: 'uppercase',
-            sample: 'Technical data or tertiary information',
-            sampleSize: 12,
-            sampleLineHeight: 1.3,
-            sampleLetterSpacing: 0.6,
-          },
-        ],
-      },
-      'type-exploration': {
-        desc: 'The Across brand is intentionally open when it comes to typographic expression. For exploration material, marketing campaigns, and editorial content, other typefaces can be used to push the visual language.\n\nThese explorations are intended for creative, limited-use contexts — not for core product UI or standard brand communications.',
-        layout: 'cards',
-        cards: [
-          { image: '/images/typography/typoAssets01.png' },
-          { image: '/images/typography/typoAssets02.png' },
-          { image: '/images/typography/typoAssets03.png' },
-        ],
-      },
-    },
-  },
-  iconography: {
-    sections: {
-      'icon-overview': {
-        desc: 'Across uses the Central Icon System by Iconists — a comprehensive, handcrafted icon library built on a 24×24 grid with a 20×20 live area.\n\nThe system provides 440+ symbols across 30 variations each, with optimized stroke weights and corner radii that adapt to different contexts and sizes.',
-        layout: 'icon-feature',
-        url: 'https://iconists.co/central',
-        linkLabel: 'Browse Central Icon System ↗',
-      },
-    },
-  },
-  'resources-downloads': {
-    sections: {
-      'res-downloads': {
-        desc: 'Download approved brand assets. All files are provided in production-ready formats for various use cases.',
-        layout: 'resources',
-        resources: [
-          { name: 'All Assets', format: 'ZIP', file: '/Across_Assets.zip' },
-          { name: 'Logo Assets', format: 'ZIP', file: '/Across_Logo_Assets.zip' },
-          { name: 'Alt Logos', format: 'ZIP', file: '/Across_Alt_Logos.zip' },
-          { name: 'Gradients', format: 'ZIP', file: '/Across_Gradients.zip' },
-          { name: 'Main Colors', format: 'ZIP', file: '/Across_Main_Colors.zip' },
-        ],
-      },
-    },
-  },
-}
-
 // ── Helpers ──────────────────────────────────────────────
 function formatDesc(text) {
   return text
@@ -544,11 +97,14 @@ function copyColor(value, feedbackEl) {
       feedbackEl.textContent = orig
       feedbackEl.classList.remove('copied')
     }, 1000)
-  })
+  }).catch(() => { feedbackEl.textContent = 'Copy unavailable' })
 }
 
 // ── Poster-style hover copy label ────────────────────────
 function initCopyLabel(el, value) {
+  el.tabIndex = 0
+  el.setAttribute('role', 'button')
+  el.setAttribute('aria-label', `Copy ${value}`)
   const label = document.createElement('div')
   label.className = 'cb-label'
   el.appendChild(label)
@@ -558,6 +114,12 @@ function initCopyLabel(el, value) {
   let copied = false
 
   function showText(text) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      label.innerHTML = `<span style="opacity:1;transform:none">${text}</span>`
+      label.style.width = 'auto'
+      label.style.opacity = '1'
+      return
+    }
     label.innerHTML = ''
     const spans = []
     for (const char of text) {
@@ -625,6 +187,14 @@ function initCopyLabel(el, value) {
     copied = false
   })
 
+  el.addEventListener('focus', () => {
+    label.style.left = '12px'; label.style.top = '12px'; showText('COPY')
+  })
+  el.addEventListener('blur', hideLabel)
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click() }
+  })
+
   el.addEventListener('click', () => {
     navigator.clipboard.writeText(value).then(() => {
       copied = true
@@ -641,7 +211,7 @@ function initCopyLabel(el, value) {
           }, 1200)
         })
       })
-    })
+    }).catch(() => showText('COPY UNAVAILABLE'))
   })
 }
 
@@ -663,26 +233,30 @@ function buildPlayground(sectionEl) {
   controls.className = 'playground-controls'
 
   // State
-  let currentBg = '#2D2E33'
+  let currentBg = '#151518'
   let currentVariation = 'wordmark'
   let currentWidth = PLAYGROUND_CONFIG.wordmark.defaultW
-  const svgCache = {}
+  const imageCache = new Map()
+  let variationRequest = 0
 
   // Picker HSV state
   let pickerH = 0
   let pickerS = 0
   let pickerV = 0
 
-  // Load SVG, swap fills to currentColor
-  async function loadSVG(key) {
-    if (svgCache[key]) return svgCache[key]
-    const resp = await fetch(PLAYGROUND_CONFIG[key].src)
-    let text = await resp.text()
-    text = text.replace(/fill="#151518"/g, 'fill="currentColor"')
-    text = text.replace(/ width="\d+"/, '')
-    text = text.replace(/ height="\d+"/, '')
-    svgCache[key] = text
-    return text
+  // Load approved variants intact, including the symbol's transparent cutouts.
+  function loadLogo(key, color) {
+    const url = `/logos/${PLAYGROUND_CONFIG[key].name}-${color}.svg`
+    if (!imageCache.has(url)) {
+      imageCache.set(url, new Promise((resolve, reject) => {
+        const img = new Image()
+        img.onload = () => resolve(img)
+        img.onerror = () => { imageCache.delete(url); reject(new Error('Logo could not load')) }
+        img.src = url
+        img.alt = key.includes('symbol') ? 'Across symbol' : 'Across logo'
+      }))
+    }
+    return imageCache.get(url)
   }
 
   // ── Shared refs (populated below, used in update) ──
@@ -703,10 +277,15 @@ function buildPlayground(sectionEl) {
   function update() {
     const config = PLAYGROUND_CONFIG[currentVariation]
     const color = getLogoColor(currentBg)
-    const w = Math.max(config.minW, Math.min(config.maxW, currentWidth))
+    const w = Math.max(config.minW, Math.min(config.maxW, Math.max(config.minW, canvas.clientWidth - 48), currentWidth))
 
     canvas.style.backgroundColor = currentBg
-    logoContainer.style.color = color.hex
+    const request = ++variationRequest
+    loadLogo(currentVariation, color.name).then(img => {
+      if (request === variationRequest) logoContainer.replaceChildren(img.cloneNode())
+    }).catch(() => {
+      if (request === variationRequest) logoContainer.textContent = 'Logo unavailable. Please reload.'
+    })
     logoContainer.style.width = w + 'px'
     logoContainer.style.height = w / config.ratio + 'px'
 
@@ -722,7 +301,7 @@ function buildPlayground(sectionEl) {
     sizeValue.textContent = Math.round(w) + 'px'
 
     swatchEls.forEach((s) => s.classList.toggle('active', s.dataset.color === currentBg))
-    toggleEls.forEach((t) => t.classList.toggle('active', t.dataset.variation === currentVariation))
+    toggleEls.forEach(t => { const active = t.dataset.variation === currentVariation; t.classList.toggle('active', active); t.setAttribute('aria-pressed', active) })
 
     // Picker visuals
     const hueColor = hsvToHex(pickerH, 1, 1)
@@ -732,20 +311,10 @@ function buildPlayground(sectionEl) {
     hueCursorEl.style.left = (pickerH / 360 * 100) + '%'
   }
 
-  // Switch variation with crossfade
-  async function switchVariation(key) {
-    logoContainer.style.opacity = '0'
-    await new Promise((r) => setTimeout(r, 180))
-
+  function switchVariation(key) {
     currentVariation = key
     currentWidth = PLAYGROUND_CONFIG[key].defaultW
-    const svg = await loadSVG(key)
-    logoContainer.innerHTML = svg
     update()
-
-    requestAnimationFrame(() => {
-      logoContainer.style.opacity = '1'
-    })
   }
 
   // ── Background row ──
@@ -756,7 +325,9 @@ function buildPlayground(sectionEl) {
   const swatches = document.createElement('div')
   swatches.className = 'playground-swatches'
   for (const preset of PLAYGROUND_PRESETS) {
-    const s = document.createElement('div')
+    const s = document.createElement('button')
+    s.type = 'button'
+    s.setAttribute('aria-label', preset.label + ' background')
     s.className = 'playground-swatch'
     s.dataset.color = preset.hex
     s.style.backgroundColor = preset.hex
@@ -775,6 +346,7 @@ function buildPlayground(sectionEl) {
   hexInput = document.createElement('input')
   hexInput.className = 'playground-hex'
   hexInput.type = 'text'
+  hexInput.setAttribute('aria-label', 'Background hex color')
   hexInput.value = currentBg
   hexInput.maxLength = 7
   hexInput.addEventListener('change', () => {
@@ -864,6 +436,7 @@ function buildPlayground(sectionEl) {
 
   sizeSlider = document.createElement('input')
   sizeSlider.type = 'range'
+  sizeSlider.setAttribute('aria-label', 'Logo width in pixels')
   sizeSlider.min = PLAYGROUND_CONFIG.wordmark.minW
   sizeSlider.max = PLAYGROUND_CONFIG.wordmark.maxW
   sizeSlider.value = currentWidth
@@ -887,7 +460,7 @@ function buildPlayground(sectionEl) {
 
   const toggles = document.createElement('div')
   toggles.className = 'playground-toggles'
-  for (const [key, label] of [['wordmark', 'Wordmark'], ['symbol', 'Symbol']]) {
+  for (const [key, label] of [['wordmark', 'Primary'], ['secondary', 'Secondary'], ['symbol', 'Symbol'], ['secondary-symbol', 'Ring Symbol']]) {
     const btn = document.createElement('button')
     btn.className = 'playground-toggle'
     btn.dataset.variation = key
@@ -916,6 +489,9 @@ function buildPlayground(sectionEl) {
   // Init — sync picker to default bg, load wordmark
   syncPickerFromHex(currentBg)
   switchVariation('wordmark')
+  const resize = new ResizeObserver(() => update())
+  resize.observe(canvas)
+  sectionEl._cleanup = () => { resize.disconnect(); variationRequest++ }
 }
 
 // ── State ────────────────────────────────────────────────
@@ -936,7 +512,7 @@ function buildNav() {
   // Logo
   const logoSection = document.createElement('div')
   logoSection.className = 'sn-section sn-logo'
-  logoSection.innerHTML = `<a href="/"><img src="/acrossDesignFull.svg" alt="Across Design" /></a>`
+  logoSection.innerHTML = `<a href="/#logo" aria-label="Across design system"><img src="/logos/primary-logo-white.svg" alt="Across Design" /></a>`
   sideNav.appendChild(logoSection)
 
   // Info
@@ -945,7 +521,7 @@ function buildNav() {
   infoSection.innerHTML = `
     <span>across® protocol</span>
     <span>visual identity guidelines</span>
-    <span class="muted">last updated: ${formatBuildDate()}</span>
+    <span class="muted">brand revision: ${BRAND_REVISION}</span>
   `
   sideNav.appendChild(infoSection)
 
@@ -957,7 +533,9 @@ function buildNav() {
     if (cat.id === openCategoryId) catEl.classList.add('open')
 
     // Header
-    const header = document.createElement('div')
+    const header = document.createElement('button')
+    header.type = 'button'
+    header.setAttribute('aria-expanded', cat.id === openCategoryId)
     header.className = 'category-header'
     header.textContent = cat.label
     header.addEventListener('click', () => toggleCategory(cat.id))
@@ -983,7 +561,9 @@ function buildNav() {
         }
 
         // Page header row
-        const pageHeader = document.createElement('div')
+        const pageHeader = document.createElement('button')
+        pageHeader.type = 'button'
+        pageHeader.setAttribute('aria-expanded', page.id === activePageId)
         pageHeader.className = 'page-header'
 
         const pageName = document.createElement('span')
@@ -1030,6 +610,7 @@ function buildNav() {
             link.dataset.sectionId = section.id
             link.addEventListener('click', (e) => {
               e.preventDefault()
+              updateHash(section.id)
               scrollToSection(section.id)
             })
             sectionsEl.appendChild(link)
@@ -1072,54 +653,49 @@ function updateHash(pageId) {
   }
 }
 
-function findPageCategory(pageId) {
-  for (const cat of NAV_DATA) {
-    if (cat.pages.find((p) => p.id === pageId)) return cat.id
-  }
-  return null
-}
-
+// Resolve page and section hashes, including links copied from the previous guide.
 function navigateFromHash() {
-  const hashStr = location.hash.replace(/^#/, '')
-  const params = new URLSearchParams(hashStr)
-  // Support ?figmapage=<id> inside the hash for Figma captures
-  const raw = params.get('figmapage') || hashStr.split('&')[0]
-  if (!raw || raw.startsWith('figmacapture')) {
-    // Default: first page
-    const defaultCat = NAV_DATA[0]
-    const defaultPage = defaultCat.pages[0]
-    toggleCategory(defaultCat.id)
+  const aliases = { 'type-barlow': 'type-supreme', 'type-geist-mono': 'type-supreme', 'type-exploration': 'type-overview', experimentations: 'application' }
+  const hash = location.hash.slice(1)
+  const id = aliases[hash] || hash || 'logo'
+  for (const cat of NAV_DATA) {
+    const page = cat.pages.find(p => p.id === id || p.sections.some(s => s.id === id))
+    if (!page) continue
+    openCategoryId = cat.id
+    selectPage(cat.id, page.id, false)
+    syncNav()
+    if (page.id !== id) requestAnimationFrame(() => scrollToSection(id, false))
+    else guideContent.scrollTop = 0
     return
   }
-
-  const pageId = raw
-  const categoryId = findPageCategory(pageId)
-  if (!categoryId) {
-    // Unknown page, fall back to default
-    const defaultCat = NAV_DATA[0]
-    toggleCategory(defaultCat.id)
-    return
-  }
-
-  // Open correct category + page
-  if (openCategoryId !== categoryId) {
-    const prevCat = sideNav.querySelector(`.sn-category[data-category="${openCategoryId}"]`)
-    if (prevCat) prevCat.classList.remove('open')
-    openCategoryId = categoryId
-    const newCat = sideNav.querySelector(`.sn-category[data-category="${categoryId}"]`)
-    if (newCat) newCat.classList.add('open')
-  }
-
-  selectPage(categoryId, pageId)
+  openCategoryId = NAV_DATA[0].id
+  selectPage(openCategoryId, 'logo', false)
+  syncNav()
 }
 
-window.addEventListener('popstate', () => {
-  navigateFromHash()
-})
+function syncNav() {
+  sideNav.querySelectorAll('.sn-category').forEach(n => {
+    const active = n.dataset.category === openCategoryId
+    n.classList.toggle('open', active)
+    n.querySelector('.category-header').setAttribute('aria-expanded', active)
+    n.querySelector('.category-body').inert = !active
+  })
+  sideNav.querySelectorAll('.page-item').forEach(n => {
+    const active = n.dataset.page === activePageId
+    n.classList.toggle('active', active)
+    n.querySelector('.page-header').setAttribute('aria-expanded', active)
+    const body = n.querySelector('.page-body')
+    if (body) body.inert = !active
+  })
+}
+
+window.addEventListener('popstate', navigateFromHash)
+window.addEventListener('hashchange', navigateFromHash)
 
 // ── Toggle category accordion ────────────────────────────
 function toggleCategory(categoryId) {
   if (openCategoryId === categoryId) return // already open
+  const keepMobileMenuOpen = document.body.classList.contains('mobile-nav-open')
 
   // Close previous
   const prevCat = sideNav.querySelector(`.sn-category[data-category="${openCategoryId}"]`)
@@ -1135,16 +711,33 @@ function toggleCategory(categoryId) {
   if (cat && cat.pages.length > 0) {
     selectPage(categoryId, cat.pages[0].id)
   }
+  if (keepMobileMenuOpen) {
+    document.body.classList.add('mobile-nav-open')
+    document.getElementById('mobile-menu-btn').setAttribute('aria-expanded', 'true')
+    syncMobileNav()
+  }
 }
 
 // ── Select a page ────────────────────────────────────────
 function closeMobileNav() {
   document.body.classList.remove('mobile-nav-open')
+  document.getElementById('mobile-menu-btn').setAttribute('aria-expanded', 'false')
+  syncMobileNav()
 }
 
-function selectPage(categoryId, pageId) {
+function syncMobileNav() {
+  const mobile = matchMedia('(max-width: 768px)').matches
+  const open = document.body.classList.contains('mobile-nav-open')
+  sideNav.inert = mobile && !open
+  guideContent.inert = mobile && open
+}
+
+function selectPage(categoryId, pageId, push = true) {
   closeMobileNav()
-  if (activePageId === pageId && openCategoryId === categoryId) return
+  if (activePageId === pageId && openCategoryId === categoryId) {
+    if (push) { updateHash(pageId); guideContent.scrollTop = 0 }
+    return
+  }
 
   // Deactivate previous page item
   const prevPageItem = sideNav.querySelector(`.page-item.active`)
@@ -1156,7 +749,8 @@ function selectPage(categoryId, pageId) {
   if (newPageItem) newPageItem.classList.add('active')
 
   // Update URL hash (push so back button works between pages)
-  updateHash(pageId)
+  if (push) updateHash(pageId)
+  syncNav()
 
   // Render content
   renderContent(categoryId, pageId)
@@ -1164,6 +758,9 @@ function selectPage(categoryId, pageId) {
 
 // ── Render page content ──────────────────────────────────
 function renderContent(categoryId, pageId) {
+  contentInner.querySelectorAll('.content-section').forEach(n => n._cleanup?.())
+  document.getElementById('type-hover-tag')?.remove()
+
   // Tear down previous observer
   if (scrollObserver) {
     scrollObserver.disconnect()
@@ -1186,12 +783,12 @@ function renderContent(categoryId, pageId) {
   contentInner.innerHTML = ''
 
   // ── Tall header (scrolls away normally) ──
-  const header = document.createElement('div')
+  const header = document.createElement('header')
   header.className = 'content-header'
   header.innerHTML = `
     <div class="content-header-text">
       <span class="content-header-category">${cat.label}</span>
-      <span class="content-header-title">${page.label}</span>
+      <h1 class="content-header-title">${page.label}</h1>
     </div>
   `
   contentInner.appendChild(header)
@@ -1210,7 +807,7 @@ function renderContent(categoryId, pageId) {
     const textBlock = document.createElement('div')
     textBlock.className = 'section-text'
     textBlock.innerHTML = `
-      <div class="section-title">${section.label}</div>
+      <h2 class="section-title">${section.label}</h2>
       <div class="section-desc">${formatDesc(data.desc)}</div>
     `
     sectionEl.appendChild(textBlock)
@@ -1219,17 +816,62 @@ function renderContent(categoryId, pageId) {
     if (data.layout === 'playground') {
       buildPlayground(sectionEl)
 
+    } else if (data.layout === 'logo-showcase') {
+      const row = document.createElement('div')
+      row.className = 'logo-showcase' + (data.compact ? ' logo-showcase--compact' : '') + (data.decorative ? ' logo-showcase--decorative' : '')
+      data.logos.forEach(src => {
+        const figure = document.createElement('figure')
+        figure.innerHTML = `<img src="${src}" alt="${section.label}" loading="lazy" />`
+        row.appendChild(figure)
+      })
+      sectionEl.appendChild(row)
+
+    } else if (data.layout === 'gradients') {
+      const grid = document.createElement('div')
+      grid.className = 'gradient-grid'
+      data.palettes.forEach(p => {
+        const figure = document.createElement('figure')
+        figure.className = 'gradient-card'
+        const stops = p.stops.map(([hex,stop]) => `${hex} ${stop}%`).join(', ')
+        figure.innerHTML = `<div class="gradient-strip" style="background:linear-gradient(90deg,${stops})"></div><figcaption><strong>${p.name}</strong><span>${p.role}</span></figcaption><p>${p.stops.map(([hex,stop])=>`${hex} ${stop}%`).join(' · ')}</p>`
+        grid.appendChild(figure)
+      })
+      sectionEl.appendChild(grid)
+
+    } else if (data.layout === 'modes') {
+      const grid = document.createElement('div')
+      grid.className = 'mode-grid'
+      Object.entries(data.modes).forEach(([name,t]) => {
+        const figure = document.createElement('figure')
+        figure.className = 'mode-card'
+        figure.style.cssText = `background:${t.page};color:${t.text}`
+        figure.innerHTML = `<figcaption>${name === 'dark' ? 'Dark' : 'Light'}</figcaption><div class="mode-example" style="background:${t.surface}"><span style="color:${t.secondary}">From</span><strong>1,250.00 USDC</strong><span style="color:${t.secondary}">Base → Arbitrum</span><span style="color:${t.accentText}">Fast & Secure</span><div class="mode-action" style="background:${t.accent};color:${t.onAccent}">Confirm transaction</div></div><dl>${Object.entries(t).map(([key,value])=>`<div><dt>${key}</dt><dd>${value}</dd></div>`).join('')}</dl>`
+        grid.appendChild(figure)
+      })
+      sectionEl.appendChild(grid)
+
+    } else if (data.layout === 'font-links') {
+      const grid = document.createElement('div')
+      grid.className = 'font-links'
+      data.links.forEach(link => {
+        const a = document.createElement('a')
+        a.href = link.url; a.target = '_blank'; a.rel = 'noopener noreferrer'
+        a.innerHTML = `<strong>${link.name}</strong><span>${link.label}</span>`
+        grid.appendChild(a)
+      })
+      sectionEl.appendChild(grid)
+
     } else if (data.layout === 'single' && data.images) {
       const imgBlock = document.createElement('div')
       imgBlock.className = 'section-image'
-      imgBlock.innerHTML = `<img src="${data.images[0]}" alt="${section.label}" />`
+      imgBlock.innerHTML = `<img src="${data.images[0]}" alt="${section.label}" loading="lazy" />`
       sectionEl.appendChild(imgBlock)
 
     } else if (data.layout === 'stacked' && data.images) {
       const stack = document.createElement('div')
       stack.className = 'section-images-stack'
       for (const src of data.images) {
-        stack.innerHTML += `<img src="${src}" alt="${section.label}" />`
+        stack.innerHTML += `<img src="${src}" alt="${section.label}" loading="lazy" />`
       }
       sectionEl.appendChild(stack)
 
@@ -1386,6 +1028,12 @@ function renderContent(categoryId, pageId) {
           alphaEl.className = 'color-trans-alpha'
           alphaEl.textContent = alpha.toFixed(2)
           item.appendChild(alphaEl)
+          item.tabIndex = 0
+          item.setAttribute('role', 'button')
+          item.setAttribute('aria-label', `Copy ${col.name} at ${level}% opacity`)
+          item.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click() }
+          })
           item.addEventListener('click', () => copyColor(rgba, alphaEl))
           list.appendChild(item)
         }
@@ -1417,6 +1065,7 @@ function renderContent(categoryId, pageId) {
       }
 
       function showTag(text, x, y) {
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
         tagTargetX = x + 14; tagTargetY = y - 13
         if (!tagVisible) { tagX = tagTargetX; tagY = tagTargetY }
         tagVisible = true
@@ -1464,18 +1113,19 @@ function renderContent(categoryId, pageId) {
         link.target = '_blank'
         link.rel = 'noopener noreferrer'
         link.innerHTML = `
-          <div class="type-overview-sample" style="font-family: '${fam.font}', serif; font-weight: ${fam.weight || 400};">${fam.sample}</div>
+          <div class="type-overview-sample" style="font-family: '${fam.font}', ${fam.font === 'Supreme' ? 'sans-serif' : 'serif'}; font-weight: ${fam.weight || 400};">${fam.sample}</div>
           <div class="type-overview-bar">
             <span class="type-overview-label">${fam.label}</span>
             <span class="type-overview-role">${fam.role}</span>
           </div>
         `
-        const tagText = 'View on ' + (fam.url.includes('adobe') ? 'Adobe Fonts ↗' : 'Google Fonts ↗')
+        const tagText = 'View on ' + (fam.url.includes('adobe') ? 'Adobe Fonts ↗' : 'Fontshare ↗')
         link.addEventListener('mouseenter', (e) => showTag(tagText, e.clientX, e.clientY))
         link.addEventListener('mousemove', (e) => { tagTargetX = e.clientX + 14; tagTargetY = e.clientY - 13 })
         link.addEventListener('mouseleave', hideTag)
         grid.appendChild(link)
       }
+      sectionEl._cleanup = () => { tagVisible = false; cancelAnimationFrame(tagRaf); tagTimeouts.forEach(clearTimeout); tag.remove() }
       sectionEl.appendChild(grid)
 
     } else if (data.layout === 'type-specimen') {
@@ -1485,12 +1135,18 @@ function renderContent(categoryId, pageId) {
         const row = document.createElement('div')
         row.className = 'type-specimen-row'
         row.innerHTML = `
-          <span class="type-specimen-row-name" style="font-family: '${data.font}', serif; font-weight: ${w.value};">${data.label}</span>
-          <span class="type-specimen-row-weight" style="font-family: '${data.font}', serif; font-weight: ${w.value};">${w.name}</span>
+          <span class="type-specimen-row-name" style="font-family: '${data.font}', ${data.font === 'Supreme' ? 'sans-serif' : 'serif'}; font-weight: ${w.value};">${data.label}</span>
+          <span class="type-specimen-row-weight" style="font-family: '${data.font}', ${data.font === 'Supreme' ? 'sans-serif' : 'serif'}; font-weight: ${w.value};">${w.name}</span>
         `
         block.appendChild(row)
       }
       sectionEl.appendChild(block)
+      if (data.examples) {
+        const examples = document.createElement('div')
+        examples.className = 'ivy-examples'
+        examples.innerHTML = data.examples.map(e => `<figure><img src="${e.image}" alt="${e.label} specimen" loading="lazy" /><figcaption>${e.label}</figcaption></figure>`).join('')
+        sectionEl.appendChild(examples)
+      }
 
     } else if (data.layout === 'type-scale' && data.groups) {
       const wrap = document.createElement('div')
@@ -1510,7 +1166,7 @@ function renderContent(categoryId, pageId) {
               <span class="type-scale-label">${item.label}</span>
               <span class="type-scale-info">${item.size}px / ${item.lineHeight}</span>
             </div>
-            <div class="type-scale-sample" style="font-family: '${group.font}', serif; font-size: ${item.size}px; font-weight: ${item.weight}; line-height: ${item.lineHeight};">${item.label}</div>
+            <div class="type-scale-sample" style="font-family: '${group.font}', ${group.font === 'Supreme' ? 'sans-serif' : 'serif'}; font-size: ${item.size}px; font-weight: ${item.weight}; line-height: ${item.lineHeight};">${item.label}</div>
           `
           groupEl.appendChild(row)
         }
@@ -1538,7 +1194,7 @@ function renderContent(categoryId, pageId) {
               <div class="type-usage-spec"><span class="type-usage-spec-label">Tracking:</span><span class="type-usage-spec-value">${block.tracking}</span></div>
             </div>
           </div>
-          <div class="type-usage-sample" style="font-family: '${block.font}', serif; font-size: ${block.sampleSize}px; font-weight: ${block.weight}; line-height: ${block.sampleLineHeight}; letter-spacing: ${block.sampleLetterSpacing}px; ${tf}">${block.sample}</div>
+          <div class="type-usage-sample" style="font-family: '${block.font}', ${block.font === 'Supreme' ? 'sans-serif' : 'serif'}; font-size: ${block.sampleSize}px; font-weight: ${block.weight}; line-height: ${block.sampleLineHeight}; letter-spacing: ${block.sampleLetterSpacing}px; ${tf}">${block.sample}</div>
         `
         wrap.appendChild(el)
       }
@@ -1574,10 +1230,10 @@ function renderContent(categoryId, pageId) {
 }
 
 // ── Scroll to section ────────────────────────────────────
-function scrollToSection(sectionId) {
+function scrollToSection(sectionId, smooth = true) {
   const el = document.getElementById(sectionId)
   if (!el) return
-  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  el.scrollIntoView({ behavior: smooth && !matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'instant', block: 'start' })
 }
 
 // ── Scroll tracking (IntersectionObserver) ───────────────
@@ -1645,13 +1301,19 @@ function setupScrollTracking(pageId) {
 
 // ── Mobile menu toggle ───────────────────────────────────
 document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-  document.body.classList.toggle('mobile-nav-open')
+  const open = document.body.classList.toggle('mobile-nav-open')
+  document.getElementById('mobile-menu-btn').setAttribute('aria-expanded', open)
+  syncMobileNav()
 })
 document.getElementById('mobile-overlay').addEventListener('click', closeMobileNav)
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileNav() })
+window.addEventListener('resize', syncMobileNav)
 
 // ── Init ─────────────────────────────────────────────────
 buildNav()
 navigateFromHash()
+syncMobileNav()
 
 // Fade in after browser paints the hidden state
 requestAnimationFrame(() => {
