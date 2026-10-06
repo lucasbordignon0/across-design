@@ -1185,7 +1185,7 @@ function renderContent(categoryId, pageId) {
               <span class="type-scale-label">${item.label}</span>
               <span class="type-scale-info">${item.size}px / ${item.lineHeight}</span>
             </div>
-            <div class="type-scale-sample" style="font-family: '${group.font}', ${group.font === 'Supreme' ? 'sans-serif' : 'serif'}; font-size: ${item.size}px; font-weight: ${item.weight}; line-height: ${item.lineHeight};">${item.label}</div>
+            <div class="type-scale-sample" style="font-family: '${group.font}', ${group.font === 'Supreme' ? 'sans-serif' : 'serif'}; font-size: ${item.size}px; font-weight: ${item.weight}; line-height: ${item.lineHeight}; ${group.font === 'Supreme' ? 'letter-spacing: -0.03em;' : ''}">${item.label}</div>
           `
           groupEl.appendChild(row)
         }

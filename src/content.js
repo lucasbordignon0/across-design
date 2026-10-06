@@ -175,13 +175,13 @@ export const PAGE_CONTENT = {
       ],
     },
     'type-usage': {
-      desc: 'Match the typeface to the text’s job. Supreme provides clarity for product and technical content. IvyPresto adds an editorial voice to expressive work.\n\nUse clear hierarchy, comfortable line-height and restrained tracking. These web settings are starting points, not replacements for optical judgment.',
+      desc: 'Match the typeface to the text’s job. Supreme provides clarity for product and technical content. IvyPresto adds an editorial voice to expressive work.\n\nUse −3% tracking (−0.03em) for Supreme headings, body copy and labels. Pair it with clear hierarchy and comfortable line-height. These web settings are starting points, not replacements for optical judgment.',
       layout:'type-usage',blocks:[
         {role:'Editorial headline',font:'ivypresto-headline',fontLabel:'IvyPresto Headline Light',weight:300,leading:'110%',tracking:'−1%',sample:'Money in motion',sampleSize:72,sampleLineHeight:1.1,sampleLetterSpacing:-0.72},
         {role:'Long decorative paragraph',font:'ivypresto-text',fontLabel:'IvyPresto Text Regular',weight:400,leading:'160%',tracking:'0%',sample:'Across connects the places value needs to go. Every journey begins with an intention, opening new possibilities for the people, products and networks on the other side.',sampleSize:24,sampleLineHeight:1.6,sampleLetterSpacing:0},
-        {role:'Functional heading',font:'Supreme',fontLabel:'Supreme Medium',weight:500,leading:'125%',tracking:'−1%',sample:'Move value between chains',sampleSize:32,sampleLineHeight:1.25,sampleLetterSpacing:-0.32},
-        {role:'Body',font:'Supreme',fontLabel:'Supreme Regular',weight:400,leading:'160%',tracking:'0%',sample:'Wallets, exchanges, apps and payments companies use Across to move value between chains. A user says where their money should end up, relayers fill it, and the protocol settles it.',sampleSize:16,sampleLineHeight:1.6,sampleLetterSpacing:0},
-        {role:'Label',font:'Supreme',fontLabel:'Supreme Medium',weight:500,leading:'140%',tracking:'2%',transform:'uppercase',sample:'Across Protocol',sampleSize:14,sampleLineHeight:1.4,sampleLetterSpacing:0.28},
+        {role:'Functional heading',font:'Supreme',fontLabel:'Supreme Medium',weight:500,leading:'125%',tracking:'−3%',sample:'Move value between chains',sampleSize:32,sampleLineHeight:1.25,sampleLetterSpacing:-0.96},
+        {role:'Body',font:'Supreme',fontLabel:'Supreme Regular',weight:400,leading:'160%',tracking:'−3%',sample:'Wallets, exchanges, apps and payments companies use Across to move value between chains. A user says where their money should end up, relayers fill it, and the protocol settles it.',sampleSize:16,sampleLineHeight:1.6,sampleLetterSpacing:-0.48},
+        {role:'Label',font:'Supreme',fontLabel:'Supreme Medium',weight:500,leading:'140%',tracking:'−3%',transform:'uppercase',sample:'Across Protocol',sampleSize:14,sampleLineHeight:1.4,sampleLetterSpacing:-0.42},
       ],
     },
   } },
